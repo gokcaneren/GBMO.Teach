@@ -1,0 +1,6 @@
+@GBMO.Teach.API_HostAddress = http://localhost:5142
+
+GET {{GBMO.Teach.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
