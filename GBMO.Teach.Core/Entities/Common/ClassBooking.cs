@@ -10,7 +10,7 @@ public class ClassBooking  : BaseEntity
     public Guid StudentId { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
-    public ClassStatus Status { get; set; }
+    public ClassStatusses Status { get; set; }
 
     public virtual Teacher Teacher { get; set; }
     public virtual Student Student { get; set; }

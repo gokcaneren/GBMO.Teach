@@ -1,6 +1,6 @@
 namespace GBMO.Teach.Core.Enums;
 
-public enum ClassStatus
+public enum ClassStatusses
 {
     Active = 0,
     Passive = 1

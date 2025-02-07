@@ -9,11 +9,17 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
     public void Configure(EntityTypeBuilder<Student> builder)
     {
         builder.HasKey(c => c.Id);
-        
-        builder.Property(c => c.FirstName).IsRequired(true);
-        builder.Property(c => c.LastName).IsRequired(true);
-        builder.Property(c => c.Email).IsRequired(true);
-        builder.Property(c => c.PasswordHash).IsRequired(true);
-        
+
+        builder.HasQueryFilter(c => c.IsDeleted == false);
+
+        builder.HasMany(c => c.ClassBookings)
+            .WithOne(x => x.Student)
+            .HasForeignKey(z => z.StudentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(c => c.TeacherStudentConnections)
+            .WithOne(x => x.Student)
+            .HasForeignKey(z => z.StudentId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
