@@ -6,9 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddDbContext<GbmoDbContext>(options =>
-options.UseNpgsql(builder.Configuration["ConnectionStrings:GBMOTech"], c => c.MigrationsAssembly(
-    Assembly.GetAssembly(typeof(GbmoDbContext))!.GetName().Name)));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
