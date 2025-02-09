@@ -25,6 +25,16 @@ namespace GBMO.Teach.Infrastructure.Repositories
             await _gbmoDbContext.Set<TEntity>().AddAsync(entity);
         }
 
+        public void CreateRange(List<TEntity> entities)
+        {
+            _gbmoDbContext.Set<TEntity>().AddRange(entities);
+        }
+
+        public async Task CreateRangeAsync(List<TEntity> entities)
+        {
+            await _gbmoDbContext.Set<TEntity>().AddRangeAsync(entities);
+        }
+
         public void Delete(TEntity entity)
         {
             _gbmoDbContext.Remove(entity);

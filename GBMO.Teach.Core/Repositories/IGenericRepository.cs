@@ -12,11 +12,13 @@ namespace GBMO.Teach.Core.Repositories
         Task<TEntity?> GetByIdAsync(Guid id);
         Task DeleteAsync(TEntity entity);
         Task CreateAsync(TEntity entity);
+        Task CreateRangeAsync(List<TEntity> entities);
         Task UpdateAsync(TEntity entity);
         Task<int> SaveAsync();
         int Save();
         void Delete(TEntity entity);
         void Create(TEntity entity);
+        void CreateRange(List<TEntity> entities);
         void Update(TEntity entity);
         TEntity? GetBy(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity?> GetByAsync(Expression<Func<TEntity, bool>> predicate);
