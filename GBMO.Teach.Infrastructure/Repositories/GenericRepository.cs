@@ -20,9 +20,9 @@ namespace GBMO.Teach.Infrastructure.Repositories
             _gbmoDbContext.Set<TEntity>().Add(entity);
         }
 
-        public async Task CreateAsync(TEntity entity)
+        public async Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await _gbmoDbContext.Set<TEntity>().AddAsync(entity);
+            await _gbmoDbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
         }
 
         public void CreateRange(List<TEntity> entities)
@@ -30,9 +30,9 @@ namespace GBMO.Teach.Infrastructure.Repositories
             _gbmoDbContext.Set<TEntity>().AddRange(entities);
         }
 
-        public async Task CreateRangeAsync(List<TEntity> entities)
+        public async Task CreateRangeAsync(List<TEntity> entities, CancellationToken cancellationToken = default)
         {
-            await _gbmoDbContext.Set<TEntity>().AddRangeAsync(entities);
+            await _gbmoDbContext.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
         }
 
         public void Delete(TEntity entity)
@@ -40,9 +40,9 @@ namespace GBMO.Teach.Infrastructure.Repositories
             _gbmoDbContext.Remove(entity);
         }
 
-        public async Task DeleteAsync(TEntity entity)
+        public async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await Task.Run(() => _gbmoDbContext.Remove(entity));
+            await Task.Run(() => _gbmoDbContext.Remove(entity), cancellationToken);
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -55,9 +55,9 @@ namespace GBMO.Teach.Infrastructure.Repositories
             return _gbmoDbContext.Set<TEntity>().AsNoTracking();
         }
 
-        public async Task<List<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _gbmoDbContext.Set<TEntity>().ToListAsync();
+            return await _gbmoDbContext.Set<TEntity>().ToListAsync(cancellationToken);
         }
 
         public TEntity? GetBy(Expression<Func<TEntity, bool>> predicate)
@@ -65,9 +65,9 @@ namespace GBMO.Teach.Infrastructure.Repositories
             return _gbmoDbContext.Set<TEntity>().FirstOrDefault(predicate);
         }
 
-        public async Task<TEntity?> GetByAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity?> GetByAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await _gbmoDbContext.Set<TEntity>().FirstOrDefaultAsync(predicate);
+            return await _gbmoDbContext.Set<TEntity>().FirstOrDefaultAsync(predicate ,cancellationToken);
         }
 
         public TEntity? GetById(Guid id)
@@ -75,9 +75,9 @@ namespace GBMO.Teach.Infrastructure.Repositories
             return _gbmoDbContext.Set<TEntity>().FirstOrDefault(c=>c.Id.Equals(id));
         }
 
-        public async Task<TEntity?> GetByIdAsync(Guid id)
+        public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _gbmoDbContext.Set<TEntity>().FirstOrDefaultAsync(c => c.Id.Equals(id));
+            return await _gbmoDbContext.Set<TEntity>().FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);
         }
 
         public IEnumerable<TEntity> GetListBy(Expression<Func<TEntity, bool>> predicate)
@@ -85,9 +85,9 @@ namespace GBMO.Teach.Infrastructure.Repositories
             return _gbmoDbContext.Set<TEntity>().Where(predicate).ToList();
         }
 
-        public async Task<IEnumerable<TEntity>> GetListByAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> GetListByAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await _gbmoDbContext.Set<TEntity>().Where(predicate).ToListAsync();
+            return await _gbmoDbContext.Set<TEntity>().Where(predicate).ToListAsync(cancellationToken);
         }
 
         public int Save()
@@ -105,9 +105,9 @@ namespace GBMO.Teach.Infrastructure.Repositories
             _gbmoDbContext.Set<TEntity>().Update(entity);
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await Task.Run(()=> _gbmoDbContext.Set<TEntity>().Update(entity));
+            await Task.Run(()=> _gbmoDbContext.Set<TEntity>().Update(entity), cancellationToken);
         }
     }
 }

@@ -3,6 +3,6 @@
     public interface IUnitOfWork
     {
         int Commit();
-        Task<int> CommitAsync();
+        Task<int> CommitAsync(CancellationToken cancellationToken = default);
     }
 }

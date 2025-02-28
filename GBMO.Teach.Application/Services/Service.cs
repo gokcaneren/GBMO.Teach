@@ -16,24 +16,24 @@ namespace GBMO.Teach.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<TEntity> CreateAsync(TEntity entity)
+        public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await _repository.CreateAsync(entity);
-            await _unitOfWork.CommitAsync();
+            await _repository.CreateAsync(entity, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
             return entity;
         }
 
-        public async Task<List<TEntity>> CreateRangeAsync(List<TEntity> entities)
+        public async Task<List<TEntity>> CreateRangeAsync(List<TEntity> entities, CancellationToken cancellationToken = default)
         {
-            await _repository.CreateRangeAsync(entities);
-            await _unitOfWork.CommitAsync();
+            await _repository.CreateRangeAsync(entities, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
             return entities;
         }
 
-        public async Task DeleteAsync(TEntity entity)
+        public async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await _repository.DeleteAsync(entity);
-            await _unitOfWork.CommitAsync();
+            await _repository.DeleteAsync(entity, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -46,9 +46,9 @@ namespace GBMO.Teach.Application.Services
             return _repository.GetAllAsQueryable();
         }
 
-        public async Task<List<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAllAsync(cancellationToken);
         }
 
         public TEntity? GetById(Guid id)
@@ -56,14 +56,15 @@ namespace GBMO.Teach.Application.Services
             return _repository.GetById(id);
         }
 
-        public async Task<TEntity?> GetByIdAsync(Guid id)
+        public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _repository.GetByIdAsync(id);
+            return await _repository.GetByIdAsync(id, cancellationToken);
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await _repository.UpdateAsync(entity);
+            await _repository.UpdateAsync(entity, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
             return entity;
         }
     }

@@ -5,16 +5,16 @@ namespace GBMO.Teach.Core.Services
     public interface IService<TEntity> where TEntity : BaseEntity
     {
         TEntity? GetById(Guid id);
-        Task<TEntity?> GetByIdAsync(Guid id);
+        Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         IQueryable<TEntity> GetAllAsQueryable();
         IEnumerable<TEntity> GetAll();
-        Task<List<TEntity>> GetAllAsync();
+        Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);
 
-        Task<TEntity> CreateAsync(TEntity entity);
-        Task<List<TEntity>> CreateRangeAsync(List<TEntity> entities);
+        Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task<List<TEntity>> CreateRangeAsync(List<TEntity> entities, CancellationToken cancellationToken = default);
 
-        Task<TEntity> UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-        Task DeleteAsync(TEntity entity);
+        Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
     }
 }

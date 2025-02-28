@@ -30,13 +30,16 @@ namespace GBMO.Teach.Infrastructure.Extensions
     {
         public static IServiceCollection BuildInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<GbmoDbContext>(options =>
+
+            services.AddSingleton<SoftDeleteInterceptor>();
+
+            services.AddDbContext<GbmoDbContext>((serviceProvider ,options) =>
                 options.UseNpgsql(configuration["ConnectionStrings:GBMOTech"], c =>
-                c.MigrationsAssembly(Assembly.GetAssembly(typeof(GbmoDbContext))!.GetName().Name)));
+                c.MigrationsAssembly(Assembly.GetAssembly(typeof(GbmoDbContext))!.GetName().Name))
+                .AddInterceptors(serviceProvider.GetRequiredService<SoftDeleteInterceptor>()));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();

@@ -30,13 +30,13 @@ namespace GBMO.Teach.Infrastructure.UnitOfWorks
             }
         }
 
-        public async Task<int> CommitAsync()
+        public async Task<int> CommitAsync(CancellationToken cancellationToken = default)
         {
             using (var transaction = _gbmoDbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    var saveCount = await _gbmoDbContext.SaveChangesAsync();
+                    var saveCount = await _gbmoDbContext.SaveChangesAsync(cancellationToken);
                     await transaction.CommitAsync();
                     return saveCount;
                 }
