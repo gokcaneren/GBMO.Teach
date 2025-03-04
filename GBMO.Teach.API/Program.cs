@@ -1,5 +1,7 @@
 using GBMO.Teach.Application.Extensions;
 using GBMO.Teach.Infrastructure.Extensions;
+using GBMO.Teach.Localization.Extensions;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.BuildInfrastructureServices(builder.Configuration);
 builder.Services.BuildApplicationServices(builder.Configuration);
 
+builder.Services.BuildLocalizationServices(builder.Configuration);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -22,5 +28,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();

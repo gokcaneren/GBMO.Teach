@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GBMO.Teach.Infrastructure\GBMO.Teach.Infrastructure.csproj" />
+      <ProjectReference Include="..\GBMO.Teach.Localization\GBMO.Teach.Localization.csproj" />
     </ItemGroup>
 
 </Project>
