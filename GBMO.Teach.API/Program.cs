@@ -1,3 +1,4 @@
+using GBMO.Teach.Application.Authentication.Extensions;
 using GBMO.Teach.Application.Extensions;
 using GBMO.Teach.Infrastructure.Extensions;
 using GBMO.Teach.Localization.Extensions;
@@ -11,6 +12,8 @@ builder.Services.BuildInfrastructureServices(builder.Configuration);
 builder.Services.BuildApplicationServices(builder.Configuration);
 
 builder.Services.BuildLocalizationServices(builder.Configuration);
+
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -29,5 +32,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

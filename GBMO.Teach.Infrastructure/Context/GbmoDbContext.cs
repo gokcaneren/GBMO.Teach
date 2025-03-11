@@ -1,4 +1,5 @@
 using System.Reflection;
+using GBMO.Teach.Core.Entities.Auth;
 using GBMO.Teach.Core.Entities.Common;
 using GBMO.Teach.Core.Entities.Configurations;
 using GBMO.Teach.Core.Entities.Students;
@@ -14,6 +15,8 @@ public class GbmoDbContext : DbContext
         
     }
 
+    public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
     public DbSet<Teacher> Teachers { get; set; }
     public DbSet<TeacherSchedule> TeacherSchedules { get; set; }
     public DbSet<Student> Students { get; set; }

@@ -7,7 +7,7 @@ namespace GBMO.Teach.Core.Services.ConfigurationsServices
 {
     public class SettingService : Service<Setting>, ISettingService
     {
-        public SettingService(IGenericRepository<Setting> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public SettingService(IGenericRepository<Setting> repository) : base(repository)
         {
         }
     }

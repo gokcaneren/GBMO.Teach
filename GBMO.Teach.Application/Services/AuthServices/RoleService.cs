@@ -7,7 +7,7 @@ namespace GBMO.Teach.Core.Services.AuthServices
 {
     public class RoleService : Service<Role>, IRoleService
     {
-        public RoleService(IGenericRepository<Role> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public RoleService(IGenericRepository<Role> repository) : base(repository)
         {
         }
     }

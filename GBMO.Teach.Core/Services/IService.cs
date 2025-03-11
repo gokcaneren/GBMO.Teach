@@ -10,7 +10,7 @@ namespace GBMO.Teach.Core.Services
         IEnumerable<TEntity> GetAll();
         Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);
 
-        Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task<TEntity> CreateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
         Task<List<TEntity>> CreateRangeAsync(List<TEntity> entities, CancellationToken cancellationToken = default);
 
         Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);

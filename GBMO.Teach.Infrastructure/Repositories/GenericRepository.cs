@@ -20,9 +20,14 @@ namespace GBMO.Teach.Infrastructure.Repositories
             _gbmoDbContext.Set<TEntity>().Add(entity);
         }
 
-        public async Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public async Task CreateAsync(TEntity entity, bool autoSave= false, CancellationToken cancellationToken = default)
         {
             await _gbmoDbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
+
+            if (autoSave)
+            {
+                await _gbmoDbContext.SaveChangesAsync(cancellationToken);
+            }
         }
 
         public void CreateRange(List<TEntity> entities)

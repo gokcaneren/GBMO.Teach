@@ -7,7 +7,7 @@ namespace GBMO.Teach.Core.Services.CommonServices
 {
     public class TeacherStudentConnectionService : Service<TeacherStudentConnection>, ITeacherStudentConnectionService
     {
-        public TeacherStudentConnectionService(IGenericRepository<TeacherStudentConnection> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public TeacherStudentConnectionService(IGenericRepository<TeacherStudentConnection> repository) : base(repository)
         {
         }
     }

@@ -7,7 +7,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
 {
     public class TeacherScheduleService : Service<TeacherSchedule>, ITeacherScheduleService
     {
-        public TeacherScheduleService(IGenericRepository<TeacherSchedule> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public TeacherScheduleService(IGenericRepository<TeacherSchedule> repository) : base(repository)
         {
         }
     }

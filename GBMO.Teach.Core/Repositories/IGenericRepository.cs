@@ -11,7 +11,7 @@ namespace GBMO.Teach.Core.Repositories
         TEntity? GetById(Guid id);
         Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task DeleteAsync(TEntity entity, CancellationToken cancellationToken= default);
-        Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task CreateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
         Task CreateRangeAsync(List<TEntity> entities, CancellationToken cancellationToken = default);
         Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
         Task<int> SaveAsync();

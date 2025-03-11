@@ -7,7 +7,7 @@ namespace GBMO.Teach.Core.Services.CommonServices
 {
     public class ClassBookingService : Service<ClassBooking>, IClassBookingService
     {
-        public ClassBookingService(IGenericRepository<ClassBooking> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public ClassBookingService(IGenericRepository<ClassBooking> repository) : base(repository)
         {
         }
     }

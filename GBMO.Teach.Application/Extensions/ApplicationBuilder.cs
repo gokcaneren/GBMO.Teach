@@ -1,4 +1,7 @@
-﻿using GBMO.Teach.Application.Services;
+﻿using GBMO.Teach.Application.Authentication.Configurations;
+using GBMO.Teach.Application.Mapping.Auth.User;
+using GBMO.Teach.Application.Services;
+using GBMO.Teach.Application.Services.AuthServices;
 using GBMO.Teach.Core.Services;
 using GBMO.Teach.Core.Services.AuthServices;
 using GBMO.Teach.Core.Services.CommonServices;
@@ -14,7 +17,10 @@ namespace GBMO.Teach.Application.Extensions
     {
         public static IServiceCollection BuildApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddTransient<JwtConfiguration>();
+
             services.AddScoped(typeof(IService<>), typeof(Service<>));
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
 
@@ -27,6 +33,8 @@ namespace GBMO.Teach.Application.Extensions
 
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<ITeacherScheduleService, TeacherScheduleService>();
+
+            services.AddAutoMapper(typeof(UserProfile));
           
             return services;
         }

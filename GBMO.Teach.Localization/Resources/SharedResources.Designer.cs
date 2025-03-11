@@ -61,6 +61,42 @@ namespace GBMO.Teach.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This user already exist!.
+        /// </summary>
+        public static string Auth_UserAlreadyExist {
+            get {
+                return ResourceManager.GetString("Auth.UserAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Successfully created!.
+        /// </summary>
+        public static string Auth_UserCreateSuccessful {
+            get {
+                return ResourceManager.GetString("Auth.UserCreateSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user not exist or incorrect password!.
+        /// </summary>
+        public static string Auth_UserNotExistOrWrongPassword {
+            get {
+                return ResourceManager.GetString("Auth.UserNotExistOrWrongPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login successful!.
+        /// </summary>
+        public static string Auth_UserSuccessfulLogin {
+            get {
+                return ResourceManager.GetString("Auth.UserSuccessfulLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hi.
         /// </summary>
         public static string Greetings {

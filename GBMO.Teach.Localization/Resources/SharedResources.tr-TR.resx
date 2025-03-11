@@ -120,4 +120,16 @@
   <data name="Greetings" xml:space="preserve">
     <value>Merhaba</value>
   </data>
+  <data name="Auth.UserAlreadyExist" xml:space="preserve">
+    <value>Bu kullanıcı zaten mevcut!</value>
+  </data>
+  <data name="Auth.UserCreateSuccessful" xml:space="preserve">
+    <value>Kullanıcı başarıyla oluşturuldu!</value>
+  </data>
+  <data name="Auth.UserNotExistOrWrongPassword" xml:space="preserve">
+    <value>Bu kullanıcı mevcut değil veya şifre hatalı!</value>
+  </data>
+  <data name="Auth.UserSuccessfulLogin" xml:space="preserve">
+    <value>Giriş başarılı!</value>
+  </data>
 </root>
