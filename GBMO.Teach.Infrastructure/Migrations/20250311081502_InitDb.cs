@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GBMO.Teach.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitializeDb : Migration
+    public partial class InitDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,7 +55,7 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: false),
-                    RoleId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RoleTypeId = table.Column<int>(type: "integer", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -64,12 +64,6 @@ namespace GBMO.Teach.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,10 +205,10 @@ namespace GBMO.Teach.Infrastructure.Migrations
                 columns: new[] { "Id", "CreationTime", "DeletedTime", "IsDeleted", "ModifiedDate", "RoleTypeId" },
                 values: new object[,]
                 {
-                    { new Guid("56ab4141-e0ba-46d7-b587-00db6e3aa520"), new DateTime(2025, 3, 10, 11, 8, 49, 432, DateTimeKind.Utc).AddTicks(1439), null, false, null, 2 },
-                    { new Guid("6d27bb17-afcb-4017-b0aa-ed0cff23fe33"), new DateTime(2025, 3, 10, 11, 8, 49, 432, DateTimeKind.Utc).AddTicks(1404), null, false, null, 0 },
-                    { new Guid("8e40e040-bb8c-4e9b-9740-040646f7537e"), new DateTime(2025, 3, 10, 11, 8, 49, 432, DateTimeKind.Utc).AddTicks(1440), null, false, null, 3 },
-                    { new Guid("c854370a-09ff-47e3-a05b-847b75233951"), new DateTime(2025, 3, 10, 11, 8, 49, 432, DateTimeKind.Utc).AddTicks(1438), null, false, null, 1 }
+                    { new Guid("3ad54497-b15f-4fdf-a534-1a83aa4dac0e"), new DateTime(2025, 3, 11, 8, 15, 2, 175, DateTimeKind.Utc).AddTicks(7740), null, false, null, 3 },
+                    { new Guid("6a5bb63b-f1cb-45a2-bb3c-73e195ec072d"), new DateTime(2025, 3, 11, 8, 15, 2, 175, DateTimeKind.Utc).AddTicks(7737), null, false, null, 1 },
+                    { new Guid("a8c3a133-3b9a-4201-b417-29f10aa1d72b"), new DateTime(2025, 3, 11, 8, 15, 2, 175, DateTimeKind.Utc).AddTicks(7709), null, false, null, 0 },
+                    { new Guid("d5b7ae40-7797-4480-ad53-0ccc66c47173"), new DateTime(2025, 3, 11, 8, 15, 2, 175, DateTimeKind.Utc).AddTicks(7739), null, false, null, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -253,11 +247,6 @@ namespace GBMO.Teach.Infrastructure.Migrations
                 name: "IX_TeacherStudentConnections_TeacherId",
                 table: "TeacherStudentConnections",
                 column: "TeacherId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleId",
-                table: "Users",
-                column: "RoleId");
         }
 
         /// <inheritdoc />
@@ -265,6 +254,9 @@ namespace GBMO.Teach.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ClassBookings");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Settings");
@@ -283,9 +275,6 @@ namespace GBMO.Teach.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
         }
     }
 }

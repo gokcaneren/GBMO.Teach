@@ -36,7 +36,7 @@ namespace GBMO.Teach.Application.Services.AuthServices
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role.RoleTypeId.ToString())
+                new Claim(ClaimTypes.Role, user.RoleTypeId.ToString())
             };
 
             return claims;

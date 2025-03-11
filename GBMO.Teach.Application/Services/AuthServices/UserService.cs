@@ -41,7 +41,7 @@ namespace GBMO.Teach.Core.Services.AuthServices
 
         public async Task<ApiResponse<UserLoginOutput>> LoginAsync(UserLoginInput userLoginInput, CancellationToken cancellationToken = default)
         {
-            var existedUser = await _userRepository.GetUserWithUserRole(userLoginInput.Email, cancellationToken);
+            var existedUser = await _userRepository.GetByAsync(c => c.Email.Equals(userLoginInput.Email), cancellationToken);
 
             if (existedUser == null)
             {
@@ -68,7 +68,7 @@ namespace GBMO.Teach.Core.Services.AuthServices
 
         public async Task<ApiResponse<bool>> RegisterAsync(UserRegisterInput userRegisterInput, CancellationToken cancellationToken = default)
         {
-            var userIsExist = await _userRepository.GetByAsync(c => c.Email.Equals(userRegisterInput.Email));
+            var userIsExist = await _userRepository.GetByAsync(c => c.Email.Equals(userRegisterInput.Email), cancellationToken);
 
             if (userIsExist != null)
             {

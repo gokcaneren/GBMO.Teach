@@ -8,24 +8,24 @@ namespace GBMO.Teach.API.Controllers.Auth
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
 
         [HttpPost("Register")]
-        public async Task<ApiResponse<bool>> Register(
+        public async Task<ApiResponse<bool>> RegisterAsync(
             UserRegisterInput userRegisterInput, CancellationToken cancellationToken = default)
         {
             return await _userService.RegisterAsync(userRegisterInput, cancellationToken);
         }
 
         [HttpPost("Login")]
-        public async Task<ApiResponse<UserLoginOutput>> Login(
+        public async Task<ApiResponse<UserLoginOutput>> LoginAsync(
             UserLoginInput userLoginInput, CancellationToken cancellationToken = default)
         {
             return await _userService.LoginAsync(userLoginInput, cancellationToken);

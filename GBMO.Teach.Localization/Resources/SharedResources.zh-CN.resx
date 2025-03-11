@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Greetings" xml:space="preserve">
-    <value>欢迎</value>
-  </data>
   <data name="Auth.UserAlreadyExist" xml:space="preserve">
     <value>该用户已经存在！</value>
   </data>
@@ -131,5 +128,8 @@
   </data>
   <data name="Auth.UserSuccessfulLogin" xml:space="preserve">
     <value>登录成功！</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>成功！</value>
   </data>
 </root>

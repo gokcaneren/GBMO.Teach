@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GBMO.Teach.Infrastructure.Migrations
 {
     [DbContext(typeof(GbmoDbContext))]
-    [Migration("20250310110849_InitializeDb")]
-    partial class InitializeDb
+    [Migration("20250311081502_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,29 +53,29 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6d27bb17-afcb-4017-b0aa-ed0cff23fe33"),
-                            CreationTime = new DateTime(2025, 3, 10, 11, 8, 49, 432, DateTimeKind.Utc).AddTicks(1404),
+                            Id = new Guid("a8c3a133-3b9a-4201-b417-29f10aa1d72b"),
+                            CreationTime = new DateTime(2025, 3, 11, 8, 15, 2, 175, DateTimeKind.Utc).AddTicks(7709),
                             IsDeleted = false,
                             RoleTypeId = 0
                         },
                         new
                         {
-                            Id = new Guid("c854370a-09ff-47e3-a05b-847b75233951"),
-                            CreationTime = new DateTime(2025, 3, 10, 11, 8, 49, 432, DateTimeKind.Utc).AddTicks(1438),
+                            Id = new Guid("6a5bb63b-f1cb-45a2-bb3c-73e195ec072d"),
+                            CreationTime = new DateTime(2025, 3, 11, 8, 15, 2, 175, DateTimeKind.Utc).AddTicks(7737),
                             IsDeleted = false,
                             RoleTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("56ab4141-e0ba-46d7-b587-00db6e3aa520"),
-                            CreationTime = new DateTime(2025, 3, 10, 11, 8, 49, 432, DateTimeKind.Utc).AddTicks(1439),
+                            Id = new Guid("d5b7ae40-7797-4480-ad53-0ccc66c47173"),
+                            CreationTime = new DateTime(2025, 3, 11, 8, 15, 2, 175, DateTimeKind.Utc).AddTicks(7739),
                             IsDeleted = false,
                             RoleTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("8e40e040-bb8c-4e9b-9740-040646f7537e"),
-                            CreationTime = new DateTime(2025, 3, 10, 11, 8, 49, 432, DateTimeKind.Utc).AddTicks(1440),
+                            Id = new Guid("3ad54497-b15f-4fdf-a534-1a83aa4dac0e"),
+                            CreationTime = new DateTime(2025, 3, 11, 8, 15, 2, 175, DateTimeKind.Utc).AddTicks(7740),
                             IsDeleted = false,
                             RoleTypeId = 3
                         });
@@ -115,12 +115,10 @@ namespace GBMO.Teach.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("RoleTypeId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -338,17 +336,6 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.ToTable("TeacherSchedules");
                 });
 
-            modelBuilder.Entity("GBMO.Teach.Core.Entities.Auth.User", b =>
-                {
-                    b.HasOne("GBMO.Teach.Core.Entities.Auth.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("GBMO.Teach.Core.Entities.Common.ClassBooking", b =>
                 {
                     b.HasOne("GBMO.Teach.Core.Entities.Students.Student", "Student")
@@ -418,11 +405,6 @@ namespace GBMO.Teach.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("GBMO.Teach.Core.Entities.Auth.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("GBMO.Teach.Core.Entities.Auth.User", b =>

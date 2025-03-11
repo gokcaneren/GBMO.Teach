@@ -19,10 +19,6 @@ namespace GBMO.Teach.Infrastructure.Configurations.Auth
 
             builder.HasQueryFilter(c => c.IsDeleted == false);
 
-            builder.HasOne(c => c.Role)
-                .WithMany(x => x.Users)
-                .HasForeignKey(x => x.RoleId);
-
             builder.HasOne(c => c.Teacher)
                 .WithOne(x => x.User)
                 .HasForeignKey<Teacher>(z => z.UserId)
