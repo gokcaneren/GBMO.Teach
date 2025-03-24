@@ -132,4 +132,22 @@
   <data name="Successful" xml:space="preserve">
     <value>成功！</value>
   </data>
+  <data name="Vldn.EmailCannotBeNull" xml:space="preserve">
+    <value>电子邮件不能为空！</value>
+  </data>
+  <data name="Vldn.EmailCannotBeEmpty" xml:space="preserve">
+    <value>电子邮件不能为空！</value>
+  </data>
+  <data name="Vldn.EmailFormatError" xml:space="preserve">
+    <value>電子郵件格式錯誤！</value>
+  </data>
+  <data name="Vldn.PasswordError" xml:space="preserve">
+    <value>密码必须至少包含 6 个字符，至少包含一个大写字母、一个数字和一个特殊字符 (.!?-_&amp;%/()。</value>
+  </data>
+  <data name="Vldn.FirstNameConnetBeNullOrEmpty" xml:space="preserve">
+    <value>名字不能为空或为空！</value>
+  </data>
+  <data name="Vldn.LastNameCannotBeNullOrEmpty" xml:space="preserve">
+    <value>姓氏不能为空或为空！</value>
+  </data>
 </root>

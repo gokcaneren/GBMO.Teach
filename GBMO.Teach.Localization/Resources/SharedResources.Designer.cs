@@ -97,11 +97,65 @@ namespace GBMO.Teach.Localization.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hi.
+        ///   Looks up a localized string similar to Successful!.
         /// </summary>
-        public static string Greetings {
+        public static string Successful {
             get {
-                return ResourceManager.GetString("Greetings", resourceCulture);
+                return ResourceManager.GetString("Successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email can&apos;t be empty!.
+        /// </summary>
+        public static string Vldn_EmailCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("Vldn.EmailCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email cannot be null!.
+        /// </summary>
+        public static string Vldn_EmailCannotBeNull {
+            get {
+                return ResourceManager.GetString("Vldn.EmailCannotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email format error!.
+        /// </summary>
+        public static string Vldn_EmailFormatError {
+            get {
+                return ResourceManager.GetString("Vldn.EmailFormatError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name cannot be null or empty!.
+        /// </summary>
+        public static string Vldn_FirstNameCannetBeNullOrEmpty {
+            get {
+                return ResourceManager.GetString("Vldn.FirstNameCannetBeNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name cannot be null or empty!.
+        /// </summary>
+        public static string Vldn_LastNameCannotBeNullOrEmpty {
+            get {
+                return ResourceManager.GetString("Vldn.LastNameCannotBeNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 6 characters long, contain at least one uppercase letter, one digit, and one special character (.!?-_&amp;%/()..
+        /// </summary>
+        public static string Vldn_PasswordError {
+            get {
+                return ResourceManager.GetString("Vldn.PasswordError", resourceCulture);
             }
         }
     }

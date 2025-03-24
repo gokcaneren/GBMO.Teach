@@ -1,7 +1,9 @@
-﻿using GBMO.Teach.Application.Authentication.Configurations;
+﻿using FluentValidation;
+using GBMO.Teach.Application.Authentication.Configurations;
 using GBMO.Teach.Application.Mappings.Auth.Users;
 using GBMO.Teach.Application.Services;
 using GBMO.Teach.Application.Services.AuthServices;
+using GBMO.Teach.Application.Validations.Auth.User;
 using GBMO.Teach.Core.Services;
 using GBMO.Teach.Core.Services.AuthServices;
 using GBMO.Teach.Core.Services.CommonServices;
@@ -35,7 +37,10 @@ namespace GBMO.Teach.Application.Extensions
             services.AddScoped<ITeacherScheduleService, TeacherScheduleService>();
 
             services.AddAutoMapper(typeof(UserProfile));
-          
+
+            services.AddValidatorsFromAssemblyContaining(typeof(UserRegisterInputValidator));
+
+
             return services;
         }
     }

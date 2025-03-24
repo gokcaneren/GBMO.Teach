@@ -1,3 +1,5 @@
+using FluentValidation.AspNetCore;
+using GBMO.Teach.API.Filters;
 using GBMO.Teach.Application.Authentication.Extensions;
 using GBMO.Teach.Application.Extensions;
 using GBMO.Teach.Infrastructure.Extensions;
@@ -15,7 +17,9 @@ builder.Services.BuildLocalizationServices(builder.Configuration);
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute()));
+builder.Services.AddFluentValidationAutoValidation();   
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
