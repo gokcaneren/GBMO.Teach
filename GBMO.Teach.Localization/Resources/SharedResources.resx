@@ -150,4 +150,16 @@
   <data name="Vldn.LastNameCannotBeNullOrEmpty" xml:space="preserve">
     <value>Last Name cannot be null or empty!</value>
   </data>
+  <data name="Usr.TeacherProfileUpdateError" xml:space="preserve">
+    <value>Something went wrong!</value>
+  </data>
+  <data name="Usr.TeacherProfileUpdateSuccessful" xml:space="preserve">
+    <value>Profile successfully updated!</value>
+  </data>
+  <data name="Gnrl.SmtError" xml:space="preserve">
+    <value>Something went wrong!</value>
+  </data>
+  <data name="Tchr.ClassCreatedSuccessful" xml:space="preserve">
+    <value>Class successfully created!</value>
+  </data>
 </root>

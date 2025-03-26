@@ -144,10 +144,22 @@
   <data name="Vldn.PasswordError" xml:space="preserve">
     <value>Şifre en az 6 karakter uzunluğunda olmalı, en az bir büyük harf, bir rakam ve bir özel karakter (.!?-_&amp;%/() içermelidir.</value>
   </data>
-  <data name="Vldn.FirstNameConnetBeNullOrEmpty" xml:space="preserve">
+  <data name="Vldn.FirstNameCannetBeNullOrEmpty" xml:space="preserve">
     <value>Adınız boş veya null olamaz!</value>
   </data>
   <data name="Vldn.LastNameCannotBeNullOrEmpty" xml:space="preserve">
     <value>Soyadınız boş veya null olamaz!</value>
+  </data>
+  <data name="Usr.TeacherProfileUpdateError" xml:space="preserve">
+    <value>Bir sorun oluştu!</value>
+  </data>
+  <data name="Usr.TeacherProfileUpdateSuccessful" xml:space="preserve">
+    <value>Profil başarıyla güncellendi!</value>
+  </data>
+  <data name="Gnrl.SmtError" xml:space="preserve">
+    <value>Bir sorun oluştu!</value>
+  </data>
+  <data name="Teacher.ClassCreatedSuccessful" xml:space="preserve">
+    <value>Ders başarıyla oluşturuldu!</value>
   </data>
 </root>

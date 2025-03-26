@@ -13,7 +13,7 @@ namespace GBMO.Teach.Core.Repositories
         Task DeleteAsync(TEntity entity, CancellationToken cancellationToken= default);
         Task CreateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
         Task CreateRangeAsync(List<TEntity> entities, CancellationToken cancellationToken = default);
-        Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task UpdateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
         Task<int> SaveAsync();
         int Save();
         void Delete(TEntity entity);
@@ -24,5 +24,6 @@ namespace GBMO.Teach.Core.Repositories
         Task<TEntity?> GetByAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         IEnumerable<TEntity> GetListBy(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> GetListByAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
+        Task LoadNavigationPropertyAsync<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default) where TProperty : class;
     }
 }

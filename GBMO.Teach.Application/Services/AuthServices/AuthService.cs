@@ -1,6 +1,7 @@
 ﻿using GBMO.Teach.Application.Authentication.Configurations;
 using GBMO.Teach.Core.Entities.Auth;
 using GBMO.Teach.Core.Services.AuthServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,11 +12,13 @@ namespace GBMO.Teach.Application.Services.AuthServices
     public class AuthService : IAuthService
     {
 
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly JwtConfiguration _jwtConfiguration;
 
-        public AuthService(JwtConfiguration jwtConfiguration)
+        public AuthService(JwtConfiguration jwtConfiguration, IHttpContextAccessor httpContextAccessor)
         {
             _jwtConfiguration = jwtConfiguration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public string GenerateToken(User user)
@@ -27,8 +30,6 @@ namespace GBMO.Teach.Application.Services.AuthServices
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-
 
         private List<Claim> CreateClaims(User user)
         {
@@ -62,5 +63,9 @@ namespace GBMO.Teach.Application.Services.AuthServices
             );
         }
 
+        public string? GetCurrentUserId()
+        {
+            return _httpContextAccessor.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        }
     }
 }

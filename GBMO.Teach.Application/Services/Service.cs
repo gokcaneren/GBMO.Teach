@@ -1,7 +1,6 @@
 ﻿using GBMO.Teach.Core.Entities;
 using GBMO.Teach.Core.Repositories;
 using GBMO.Teach.Core.Services;
-using GBMO.Teach.Core.UnitOfWorks;
 
 namespace GBMO.Teach.Application.Services
 {
@@ -56,9 +55,9 @@ namespace GBMO.Teach.Application.Services
             return await _repository.GetByIdAsync(id, cancellationToken);
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public async Task<TEntity> UpdateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
-            await _repository.UpdateAsync(entity, cancellationToken);
+            await _repository.UpdateAsync(entity, autoSave, cancellationToken);
             return entity;
         }
     }

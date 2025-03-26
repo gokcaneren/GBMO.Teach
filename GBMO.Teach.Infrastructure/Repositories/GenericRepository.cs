@@ -110,9 +110,22 @@ namespace GBMO.Teach.Infrastructure.Repositories
             _gbmoDbContext.Set<TEntity>().Update(entity);
         }
 
-        public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public async Task UpdateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             await Task.Run(()=> _gbmoDbContext.Set<TEntity>().Update(entity), cancellationToken);
+
+            if (autoSave)
+            {
+                await _gbmoDbContext.SaveChangesAsync(cancellationToken);
+            }
+        }
+
+        public async Task LoadNavigationPropertyAsync<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default)
+            where TProperty : class
+        {
+            await _gbmoDbContext.Entry(entity)
+                .Reference(navigationProperty)
+                .LoadAsync(cancellationToken);
         }
     }
 }

@@ -144,10 +144,22 @@
   <data name="Vldn.PasswordError" xml:space="preserve">
     <value>密码必须至少包含 6 个字符，至少包含一个大写字母、一个数字和一个特殊字符 (.!?-_&amp;%/()。</value>
   </data>
-  <data name="Vldn.FirstNameConnetBeNullOrEmpty" xml:space="preserve">
+  <data name="Vldn.FirstNameCannetBeNullOrEmpty" xml:space="preserve">
     <value>名字不能为空或为空！</value>
   </data>
   <data name="Vldn.LastNameCannotBeNullOrEmpty" xml:space="preserve">
     <value>姓氏不能为空或为空！</value>
+  </data>
+  <data name="Usr.TeacherProfileUpdateError" xml:space="preserve">
+    <value>出问题了！</value>
+  </data>
+  <data name="Usr.TeacherProfileUpdateSuccessful" xml:space="preserve">
+    <value>个人资料更新成功！</value>
+  </data>
+  <data name="Gnrl.SmtError" xml:space="preserve">
+    <value>出问题了！</value>
+  </data>
+  <data name="Teacher.ClassCreatedSuccessful" xml:space="preserve">
+    <value>班级创建成功！</value>
   </data>
 </root>

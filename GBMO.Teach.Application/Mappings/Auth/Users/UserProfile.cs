@@ -6,7 +6,6 @@ using GBMO.Teach.Core.Entities.Auth;
 using GBMO.Teach.Core.Entities.Students;
 using GBMO.Teach.Core.Entities.Teachers;
 using GBMO.Teach.Core.Enums;
-using System.Reflection.Metadata;
 
 namespace GBMO.Teach.Application.Mappings.Auth.Users
 {

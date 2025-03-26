@@ -97,11 +97,47 @@ namespace GBMO.Teach.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong!.
+        /// </summary>
+        public static string Gnrl_SmtError {
+            get {
+                return ResourceManager.GetString("Gnrl.SmtError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successful!.
         /// </summary>
         public static string Successful {
             get {
                 return ResourceManager.GetString("Successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class successfully created!.
+        /// </summary>
+        public static string Tchr_ClassCreatedSuccessful {
+            get {
+                return ResourceManager.GetString("Tchr.ClassCreatedSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong!.
+        /// </summary>
+        public static string Usr_TeacherProfileUpdateError {
+            get {
+                return ResourceManager.GetString("Usr.TeacherProfileUpdateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile successfully updated!.
+        /// </summary>
+        public static string Usr_TeacherProfileUpdateSuccessful {
+            get {
+                return ResourceManager.GetString("Usr.TeacherProfileUpdateSuccessful", resourceCulture);
             }
         }
         

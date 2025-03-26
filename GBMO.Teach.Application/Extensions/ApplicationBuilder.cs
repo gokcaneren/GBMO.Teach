@@ -21,6 +21,8 @@ namespace GBMO.Teach.Application.Extensions
         {
             services.AddTransient<JwtConfiguration>();
 
+            services.AddHttpContextAccessor();
+
             services.AddScoped(typeof(IService<>), typeof(Service<>));
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();

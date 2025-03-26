@@ -10,10 +10,9 @@ namespace GBMO.Teach.Infrastructure.Configurations.Teachers
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(c=>c.DayOfWeek).IsRequired(true);
-            builder.Property(c=>c.StartTime).IsRequired(true);
-            builder.Property(c=>c.EndTime).IsRequired(true);
-            builder.Property(c=>c.IsBooked).IsRequired(true);
+            builder.Property(c => c.ClassStartDate).IsRequired(true);
+            builder.Property(c => c.ClassEndDate).IsRequired(true);
+            builder.Property(c => c.IsBooked).IsRequired(true).HasDefaultValue(false);
 
             builder.HasQueryFilter(c => c.IsDeleted == false);
         }
