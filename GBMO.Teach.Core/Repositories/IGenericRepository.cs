@@ -25,5 +25,6 @@ namespace GBMO.Teach.Core.Repositories
         IEnumerable<TEntity> GetListBy(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> GetListByAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         Task LoadNavigationPropertyAsync<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default) where TProperty : class;
+        //Task LoadNavigationCollectionPropertyAsync<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default) where TProperty : class;
     }
 }

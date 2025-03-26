@@ -53,8 +53,13 @@ namespace GBMO.Teach.Core.Services.TeacherServices
 
                 await _teacherRepository.LoadNavigationPropertyAsync(teacher, c => c.TeacherSchedules);
 
-                // TODO: New class time should be check in exist classes.
 
+                if (teacher.TeacherSchedules.Any(c =>
+                    (teacherScheduleCreateInput.ClassStartDate < c.ClassEndDate &&
+                    teacherScheduleCreateInput.ClassEndDate > c.ClassStartDate)))
+                {
+                    return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest, _localizer["Gnrl.SmtError"], false);
+                }
 
                 var teacherSchedule = new TeacherSchedule
                 {
@@ -68,9 +73,9 @@ namespace GBMO.Teach.Core.Services.TeacherServices
                 return await Task.FromResult(ApiResponse<bool>.SuccessResponse(HttpStatusCode.Created,
                     _localizer["Tchr.ClassCreatedSuccessful"], true));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(_localizer["Gnrl.SmtError"]);
+                throw new Exception($"{ex.Message} {ex.StackTrace}");
             }
             
         }

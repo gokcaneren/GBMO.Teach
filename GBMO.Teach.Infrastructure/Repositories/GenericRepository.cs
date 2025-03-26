@@ -1,6 +1,7 @@
 ﻿using GBMO.Teach.Core.Entities;
 using GBMO.Teach.Core.Repositories;
 using GBMO.Teach.Infrastructure.Context;
+using GBMO.Teach.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -120,12 +121,37 @@ namespace GBMO.Teach.Infrastructure.Repositories
             }
         }
 
-        public async Task LoadNavigationPropertyAsync<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default)
+        public async Task LoadNavigationPropertyAsync<TProperty>(TEntity entity,
+            Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default)
             where TProperty : class
         {
-            await _gbmoDbContext.Entry(entity)
+            var navigationPropertyName = navigationProperty.GetPropertyName();
+
+
+            var navigation = _gbmoDbContext.Entry(entity).Metadata
+            .FindNavigation(navigationPropertyName);
+
+            if (navigation?.IsCollection == true)
+            {
+                await _gbmoDbContext.Entry(entity)
+                .Collection(navigation)
+                .LoadAsync(cancellationToken);
+            }
+            else
+            {
+                await _gbmoDbContext.Entry(entity)
                 .Reference(navigationProperty)
                 .LoadAsync(cancellationToken);
+            }
+                
         }
+        //public async Task LoadNavigationCollectionPropertyAsync<TProperty>(TEntity entity,
+        //    Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default)
+        //    where TProperty : class
+        //{
+        //    await _gbmoDbContext.Entry(entity)
+        //        .Collection(navigationProperty)
+        //        .LoadAsync(cancellationToken);
+        //}
     }
 }
