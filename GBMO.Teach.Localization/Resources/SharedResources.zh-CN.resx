@@ -159,7 +159,13 @@
   <data name="Gnrl.SmtError" xml:space="preserve">
     <value>出问题了！</value>
   </data>
+  <data name="Tchr.ClassCreatedSuccessful" xml:space="preserve">
+    <value>班级创建成功！</value>
+  </data>
   <data name="Teacher.ClassCreatedSuccessful" xml:space="preserve">
     <value>班级创建成功！</value>
+  </data>
+  <data name="TcStCon.SubErrAlreadyConnected" xml:space="preserve">
+    <value>您已经与这位老师建立了联系！</value>
   </data>
 </root>

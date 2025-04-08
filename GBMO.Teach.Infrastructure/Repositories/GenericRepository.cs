@@ -127,7 +127,6 @@ namespace GBMO.Teach.Infrastructure.Repositories
         {
             var navigationPropertyName = navigationProperty.GetPropertyName();
 
-
             var navigation = _gbmoDbContext.Entry(entity).Metadata
             .FindNavigation(navigationPropertyName);
 
@@ -145,13 +144,5 @@ namespace GBMO.Teach.Infrastructure.Repositories
             }
                 
         }
-        //public async Task LoadNavigationCollectionPropertyAsync<TProperty>(TEntity entity,
-        //    Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default)
-        //    where TProperty : class
-        //{
-        //    await _gbmoDbContext.Entry(entity)
-        //        .Collection(navigationProperty)
-        //        .LoadAsync(cancellationToken);
-        //}
     }
 }

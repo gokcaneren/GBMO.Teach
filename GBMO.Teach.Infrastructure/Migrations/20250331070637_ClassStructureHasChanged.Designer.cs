@@ -3,6 +3,7 @@ using System;
 using GBMO.Teach.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GBMO.Teach.Infrastructure.Migrations
 {
     [DbContext(typeof(GbmoDbContext))]
-    partial class GbmoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250331070637_ClassStructureHasChanged")]
+    partial class ClassStructureHasChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,29 +53,29 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3c42d45d-9c47-45c4-b703-ff47158fe952"),
-                            CreationTime = new DateTime(2025, 4, 8, 7, 41, 57, 330, DateTimeKind.Utc).AddTicks(5366),
+                            Id = new Guid("99291aab-3363-4185-9709-90da43c59618"),
+                            CreationTime = new DateTime(2025, 3, 31, 7, 6, 37, 412, DateTimeKind.Utc).AddTicks(2732),
                             IsDeleted = false,
                             RoleTypeId = 0
                         },
                         new
                         {
-                            Id = new Guid("1902a635-6625-4d35-bbaf-12de3bae0ada"),
-                            CreationTime = new DateTime(2025, 4, 8, 7, 41, 57, 330, DateTimeKind.Utc).AddTicks(5396),
+                            Id = new Guid("92afaefd-cec2-488e-9f2d-b1aeb017874d"),
+                            CreationTime = new DateTime(2025, 3, 31, 7, 6, 37, 412, DateTimeKind.Utc).AddTicks(2778),
                             IsDeleted = false,
                             RoleTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("b2c3782a-b50d-423a-aceb-be07ef2cc91c"),
-                            CreationTime = new DateTime(2025, 4, 8, 7, 41, 57, 330, DateTimeKind.Utc).AddTicks(5397),
+                            Id = new Guid("ff2e5149-0f77-4c8f-b545-d67a06d6e382"),
+                            CreationTime = new DateTime(2025, 3, 31, 7, 6, 37, 412, DateTimeKind.Utc).AddTicks(2779),
                             IsDeleted = false,
                             RoleTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("1984d501-efba-4469-a27e-9eb7d7a4ef0a"),
-                            CreationTime = new DateTime(2025, 4, 8, 7, 41, 57, 330, DateTimeKind.Utc).AddTicks(5399),
+                            Id = new Guid("b61268ff-2862-4c7f-b8a3-5eefca9fdc58"),
+                            CreationTime = new DateTime(2025, 3, 31, 7, 6, 37, 412, DateTimeKind.Utc).AddTicks(2780),
                             IsDeleted = false,
                             RoleTypeId = 3
                         });
@@ -118,40 +121,6 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("GBMO.Teach.Core.Entities.Common.SubsRequest", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DeletedTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0);
-
-                    b.Property<Guid>("StudenId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TeacherId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SubsRequests");
                 });
 
             modelBuilder.Entity("GBMO.Teach.Core.Entities.Common.TeacherStudentConnection", b =>

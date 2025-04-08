@@ -21,8 +21,8 @@ public class GbmoDbContext : DbContext
     public DbSet<TeacherSchedule> TeacherSchedules { get; set; }
     public DbSet<Student> Students { get; set; }
     public DbSet<TeacherStudentConnection> TeacherStudentConnections { get; set; }
-    public DbSet<ClassBooking> ClassBookings { get; set; }
     public DbSet<Setting> Settings { get; set; }
+    public DbSet<SubsRequest> SubsRequests { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

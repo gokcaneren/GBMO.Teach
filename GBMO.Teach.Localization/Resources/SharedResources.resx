@@ -129,7 +129,7 @@
   <data name="Auth.UserSuccessfulLogin" xml:space="preserve">
     <value>Login successful!</value>
   </data>
-  <data name="Successful" xml:space="preserve">
+  <data name="Gnrl.Successful" xml:space="preserve">
     <value>Successful!</value>
   </data>
   <data name="Vldn.EmailCannotBeNull" xml:space="preserve">
@@ -161,5 +161,11 @@
   </data>
   <data name="Tchr.ClassCreatedSuccessful" xml:space="preserve">
     <value>Class successfully created!</value>
+  </data>
+  <data name="Teacher.ClassCreatedSuccessful" xml:space="preserve">
+    <value>Class successfully created!</value>
+  </data>
+  <data name="TcStCon.SubErrAlreadyConnected" xml:space="preserve">
+    <value>You are already connected with this teacher!</value>
   </data>
 </root>

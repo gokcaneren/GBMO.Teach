@@ -3,6 +3,7 @@ using GBMO.Teach.Application.Authentication.Configurations;
 using GBMO.Teach.Application.Mappings.Auth.Users;
 using GBMO.Teach.Application.Services;
 using GBMO.Teach.Application.Services.AuthServices;
+using GBMO.Teach.Application.Services.CommonServices;
 using GBMO.Teach.Application.Validations.Auth.User;
 using GBMO.Teach.Core.Services;
 using GBMO.Teach.Core.Services.AuthServices;
@@ -28,7 +29,6 @@ namespace GBMO.Teach.Application.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
 
-            services.AddScoped<IClassBookingService, ClassBookingService>();
             services.AddScoped<ITeacherStudentConnectionService, TeacherStudentConnectionService>();
 
             services.AddScoped<ISettingService, SettingService>();
@@ -37,6 +37,8 @@ namespace GBMO.Teach.Application.Extensions
 
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<ITeacherScheduleService, TeacherScheduleService>();
+
+            services.AddScoped<ISubRequestService, SubRequestService>();
 
             services.AddAutoMapper(typeof(UserProfile));
 

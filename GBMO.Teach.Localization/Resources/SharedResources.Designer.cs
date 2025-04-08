@@ -108,9 +108,9 @@ namespace GBMO.Teach.Localization.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Successful!.
         /// </summary>
-        public static string Successful {
+        public static string Gnrl_Successful {
             get {
-                return ResourceManager.GetString("Successful", resourceCulture);
+                return ResourceManager.GetString("Gnrl.Successful", resourceCulture);
             }
         }
         
@@ -120,6 +120,24 @@ namespace GBMO.Teach.Localization.Resources {
         public static string Tchr_ClassCreatedSuccessful {
             get {
                 return ResourceManager.GetString("Tchr.ClassCreatedSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are already connected with this teacher!.
+        /// </summary>
+        public static string TcStCon_SubErrAlreadyConnected {
+            get {
+                return ResourceManager.GetString("TcStCon.SubErrAlreadyConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class successfully created!.
+        /// </summary>
+        public static string Teacher_ClassCreatedSuccessful {
+            get {
+                return ResourceManager.GetString("Teacher.ClassCreatedSuccessful", resourceCulture);
             }
         }
         

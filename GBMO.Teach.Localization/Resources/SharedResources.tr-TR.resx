@@ -159,7 +159,13 @@
   <data name="Gnrl.SmtError" xml:space="preserve">
     <value>Bir sorun oluştu!</value>
   </data>
+  <data name="Tchr.ClassCreatedSuccessful" xml:space="preserve">
+    <value>Ders başarıyla oluşturuldu!</value>
+  </data>
   <data name="Teacher.ClassCreatedSuccessful" xml:space="preserve">
     <value>Ders başarıyla oluşturuldu!</value>
+  </data>
+  <data name="TcStCon.SubErrAlreadyConnected" xml:space="preserve">
+    <value>Bu öğretmene zaten abonesiniz.</value>
   </data>
 </root>
