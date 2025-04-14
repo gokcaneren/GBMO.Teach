@@ -168,4 +168,10 @@
   <data name="TcStCon.SubErrAlreadyConnected" xml:space="preserve">
     <value>You are already connected with this teacher!</value>
   </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Successful!</value>
+  </data>
+  <data name="TcStCon.SubReqAlredySent" xml:space="preserve">
+    <value>Sub request alredy sent!</value>
+  </data>
 </root>

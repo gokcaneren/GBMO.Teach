@@ -129,7 +129,7 @@
   <data name="Auth.UserSuccessfulLogin" xml:space="preserve">
     <value>登录成功！</value>
   </data>
-  <data name="Successful" xml:space="preserve">
+  <data name="Gnrl.Successful" xml:space="preserve">
     <value>成功！</value>
   </data>
   <data name="Vldn.EmailCannotBeNull" xml:space="preserve">
@@ -167,5 +167,11 @@
   </data>
   <data name="TcStCon.SubErrAlreadyConnected" xml:space="preserve">
     <value>您已经与这位老师建立了联系！</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>成功！</value>
+  </data>
+  <data name="TcStCon.SubReqAlredySent" xml:space="preserve">
+    <value>子请求已发送！</value>
   </data>
 </root>

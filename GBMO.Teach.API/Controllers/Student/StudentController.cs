@@ -23,7 +23,7 @@ namespace GBMO.Teach.API.Controllers.Student
         }
 
         [HttpGet("non-sub-teachers")]
-        public async Task<ApiResponse<List<NonSubTeacher>>> GetNonSubTeachersAsync(CancellationToken cancellationToken = default)
+        public async Task<ApiResponse<List<NonSubTeacherOutput>>> GetNonSubTeachersAsync(CancellationToken cancellationToken = default)
         {
             return await _subRequestService.GetNonSubTeachersAsync(cancellationToken);
         }

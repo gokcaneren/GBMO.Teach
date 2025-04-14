@@ -129,7 +129,7 @@
   <data name="Auth.UserSuccessfulLogin" xml:space="preserve">
     <value>Giriş başarılı!</value>
   </data>
-  <data name="Successful" xml:space="preserve">
+  <data name="Gnrl.Successful" xml:space="preserve">
     <value>Başarılı!</value>
   </data>
   <data name="Vldn.EmailCannotBeNull" xml:space="preserve">
@@ -167,5 +167,11 @@
   </data>
   <data name="TcStCon.SubErrAlreadyConnected" xml:space="preserve">
     <value>Bu öğretmene zaten abonesiniz.</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Başarılı!</value>
+  </data>
+  <data name="TcStCon.SubReqAlredySent" xml:space="preserve">
+    <value>Abonelik talebi zaten gönderildi!</value>
   </data>
 </root>

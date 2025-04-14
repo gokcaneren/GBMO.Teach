@@ -2,6 +2,7 @@
 using GBMO.Teach.Core.DTOs.Output.Student;
 using GBMO.Teach.Core.Entities.Auth;
 using GBMO.Teach.Core.Entities.Common;
+using GBMO.Teach.Core.Entities.Teachers;
 using GBMO.Teach.Core.Enums;
 using GBMO.Teach.Core.Repositories;
 using GBMO.Teach.Core.Repositories.AuthRepositories;
@@ -39,20 +40,27 @@ namespace GBMO.Teach.Application.Services.CommonServices
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<List<NonSubTeacher>>> GetNonSubTeachersAsync(CancellationToken cancellationToken = default)
+        public async Task<ApiResponse<List<NonSubTeacherOutput>>> GetNonSubTeachersAsync(CancellationToken cancellationToken = default)
         {
             var currentUserId = _authService.GetCurrentUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                return await Task.FromResult(ApiResponse<List<NonSubTeacher>>.ErrorResponse(HttpStatusCode.BadRequest,
+                return await Task.FromResult(ApiResponse<List<NonSubTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
                     _localizer["Gnrl.SmtError"], null));
             }
 
-            var teachers = await _userRepository.GetNotConnectedTeachersAsync(currentUserId);
+            var teachers = await _userRepository.GetNotConnectedTeachersAsync(currentUserId, cancellationToken);
 
-            var nonSubTeachers = _mapper.Map<List<NonSubTeacher>>(teachers);
+            var notRequestedTeachers = await Task.Run(() => teachers.Select(teacher =>
+            {
+                var isRequested =  _subRequestRepository.GetBy(x => x.TeacherId.Equals(teacher.Teacher.Id) &&
+                x.StudenId.Equals(currentUserId) && (x.Status == SubRequestStatusses.Sent || x.Status == SubRequestStatusses.Accepted));
+                return isRequested == null ? teacher : null;
+            }).Where(x => x != null).ToList());
 
-            return await Task.FromResult(ApiResponse<List<NonSubTeacher>>.SuccessResponse(HttpStatusCode.OK,
+            var nonSubTeachers = _mapper.Map<List<NonSubTeacherOutput>>(notRequestedTeachers);
+
+            return await Task.FromResult(ApiResponse<List<NonSubTeacherOutput>>.SuccessResponse(HttpStatusCode.OK,
                     _localizer["Gnrl.Successful"], nonSubTeachers));
         }
 
@@ -66,7 +74,17 @@ namespace GBMO.Teach.Application.Services.CommonServices
                     _localizer["Gnrl.SmtError"], false));
             }
 
-            if (await TeacherStudentConnectionIsExist(currentUserId, teacherId))
+            var currentUser = await _userRepository.GetByAsync(c => c.Id.Equals(Guid.Parse(currentUserId)));
+
+            await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Student);
+
+            if (await IsAlreadySent(currentUser.Student.Id, Guid.Parse(teacherId)))
+            {
+                return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["TcStCon.SubReqAlredySent"], false));
+            }
+
+            if (await TeacherStudentConnectionIsExist(currentUser.Student.Id, Guid.Parse(teacherId)))
             {
                 return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
                     _localizer["TcStCon.SubErrAlreadyConnected"], false));
@@ -74,7 +92,7 @@ namespace GBMO.Teach.Application.Services.CommonServices
 
             var newSubRequest = new SubsRequest()
             {
-                StudenId = Guid.Parse(currentUserId),
+                StudenId = currentUser.Student.Id,
                 TeacherId = Guid.Parse(teacherId),
                 Status = SubRequestStatusses.Sent
             };
@@ -85,12 +103,21 @@ namespace GBMO.Teach.Application.Services.CommonServices
                     _localizer["Gnrl.Successful"], true));
         }
 
-        public async Task<bool> TeacherStudentConnectionIsExist(string studentId, string teacherId)
+        public async Task<bool> TeacherStudentConnectionIsExist(Guid studentId, Guid teacherId)
         {
-            var connection = await _teacherStudentConnectionRepository.GetByAsync(c => c.StudentId.Equals(Guid.Parse(studentId)) &&
-            c.TeacherId.Equals(Guid.Parse(teacherId)));
+            var connection = await _teacherStudentConnectionRepository.GetByAsync(c => c.StudentId.Equals(studentId) &&
+            c.TeacherId.Equals(teacherId));
 
             return connection != null;
         }
+
+        public async Task<bool> IsAlreadySent(Guid studentId, Guid teacherId)
+        {
+            var isSent = await _subRequestRepository.GetByAsync(c => c.StudenId.Equals(studentId)
+            && c.TeacherId.Equals(teacherId) && c.Status == SubRequestStatusses.Sent);
+
+            return isSent != null;
+        }
+
     }
 }

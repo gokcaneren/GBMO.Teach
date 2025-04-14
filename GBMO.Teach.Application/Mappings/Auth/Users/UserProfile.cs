@@ -20,10 +20,13 @@ namespace GBMO.Teach.Application.Mappings.Auth.Users
 
             CreateMap<User, UserLoginOutput>();
 
-            CreateMap<User, NonSubTeacher>()
+            CreateMap<User, NonSubTeacherOutput>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.TeacherId, opt => opt.MapFrom(src=> src.Teacher.Id))
                 .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Teacher.Bio))
                 .ForMember(dest => dest.HourlyRate, opt => opt.MapFrom(src => src.Teacher.HourlyRate));
+
+            CreateMap<User, UserSimpleOutput>();
         }
     }
 
