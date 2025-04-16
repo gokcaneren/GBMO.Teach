@@ -49,6 +49,14 @@ namespace GBMO.Teach.Application.Services.CommonServices
                     _localizer["Gnrl.SmtError"], null));
             }
 
+            var currentUser = await _userRepository.GetByAsync(c=>c.Id.Equals(Guid.Parse(currentUserId)));
+
+            if (currentUser!.RoleTypeId == (int)RoleTypes.Teacher)
+            {
+                return await Task.FromResult(ApiResponse<List<NonSubTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["Gnrl.SmtError"], null));
+            }
+
             var teachers = await _userRepository.GetNotConnectedTeachersAsync(currentUserId, cancellationToken);
 
             var notRequestedTeachers = await Task.Run(() => teachers.Select(teacher =>

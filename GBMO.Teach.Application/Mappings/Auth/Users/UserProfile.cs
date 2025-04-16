@@ -26,7 +26,9 @@ namespace GBMO.Teach.Application.Mappings.Auth.Users
                 .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Teacher.Bio))
                 .ForMember(dest => dest.HourlyRate, opt => opt.MapFrom(src => src.Teacher.HourlyRate));
 
-            CreateMap<User, UserSimpleOutput>();
+            CreateMap<User, StudentUserSimpleOutput>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.StudentId, opt => opt.MapFrom(src=> src.Student.Id));
         }
     }
 

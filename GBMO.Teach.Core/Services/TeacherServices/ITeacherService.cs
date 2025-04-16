@@ -6,6 +6,8 @@ namespace GBMO.Teach.Core.Services.TeacherServices
 {
     public interface ITeacherService : IService<Teacher>
     {
-        Task<ApiResponse<List<UserSimpleOutput>>> GetSubRequestListAsync(CancellationToken cancellationToken = default);
+        Task<ApiResponse<List<StudentUserSimpleOutput>>> GetSubRequestListAsync(CancellationToken cancellationToken = default);
+        Task<ApiResponse<bool>> ActSubRequestAsync(string studentId, bool isAccepted = false,
+            CancellationToken cancellationToken = default);
     }
 }

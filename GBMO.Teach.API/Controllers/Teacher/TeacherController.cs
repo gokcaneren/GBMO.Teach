@@ -18,9 +18,17 @@ namespace GBMO.Teach.API.Controllers.Teacher
         }
 
         [HttpGet("sub-requesters")]
-        public async Task<ApiResponse<List<UserSimpleOutput>>> GetSubRequestersAsync(CancellationToken cancellationToken = default)
+        public async Task<ApiResponse<List<StudentUserSimpleOutput>>> GetSubRequestersAsync(CancellationToken cancellationToken = default)
         {
             return await _teacherService.GetSubRequestListAsync(cancellationToken);
+        }
+
+
+        [HttpPost("sub-request/{studentId}")]
+        public async Task<ApiResponse<bool>> AcceptSubRequestAsync(string studentId, bool isAccepted = false,
+            CancellationToken cancellationToken = default)
+        {
+            return await _teacherService.ActSubRequestAsync(studentId, isAccepted, cancellationToken);
         }
     }
 }

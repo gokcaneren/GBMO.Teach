@@ -174,4 +174,7 @@
   <data name="TcStCon.SubReqAlredySent" xml:space="preserve">
     <value>Sub request alredy sent!</value>
   </data>
+  <data name="TcStCon.TeachErrAlreadyConnected" xml:space="preserve">
+    <value>You are already connected with this student!</value>
+  </data>
 </root>
