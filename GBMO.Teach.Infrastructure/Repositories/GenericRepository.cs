@@ -1,6 +1,7 @@
 ﻿using GBMO.Teach.Core.Entities;
 using GBMO.Teach.Core.Repositories;
 using GBMO.Teach.Infrastructure.Context;
+using GBMO.Teach.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -110,9 +111,38 @@ namespace GBMO.Teach.Infrastructure.Repositories
             _gbmoDbContext.Set<TEntity>().Update(entity);
         }
 
-        public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public async Task UpdateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             await Task.Run(()=> _gbmoDbContext.Set<TEntity>().Update(entity), cancellationToken);
+
+            if (autoSave)
+            {
+                await _gbmoDbContext.SaveChangesAsync(cancellationToken);
+            }
+        }
+
+        public async Task LoadNavigationPropertyAsync<TProperty>(TEntity entity,
+            Expression<Func<TEntity, TProperty?>> navigationProperty, CancellationToken cancellationToken = default)
+            where TProperty : class
+        {
+            var navigationPropertyName = navigationProperty.GetPropertyName();
+
+            var navigation = _gbmoDbContext.Entry(entity).Metadata
+            .FindNavigation(navigationPropertyName);
+
+            if (navigation?.IsCollection == true)
+            {
+                await _gbmoDbContext.Entry(entity)
+                .Collection(navigation)
+                .LoadAsync(cancellationToken);
+            }
+            else
+            {
+                await _gbmoDbContext.Entry(entity)
+                .Reference(navigationProperty)
+                .LoadAsync(cancellationToken);
+            }
+                
         }
     }
 }

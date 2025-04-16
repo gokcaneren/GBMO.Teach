@@ -4,9 +4,9 @@ using GBMO.Teach.Infrastructure.Context;
 
 namespace GBMO.Teach.Infrastructure.Repositories.CommonRepositories
 {
-    public class ClassBookingRepository : GenericRepository<ClassBooking>, IClassBookingRepository
+    public class SubRequestRepository : GenericRepository<SubsRequest>, ISubRequestRepository
     {
-        public ClassBookingRepository(GbmoDbContext gbmoDbContext) : base(gbmoDbContext)
+        public SubRequestRepository(GbmoDbContext gbmoDbContext) : base(gbmoDbContext)
         {
         }
     }

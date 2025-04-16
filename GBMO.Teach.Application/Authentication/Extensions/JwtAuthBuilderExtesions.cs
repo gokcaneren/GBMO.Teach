@@ -15,13 +15,8 @@ namespace GBMO.Teach.Application.Authentication.Extensions
         {
             var jwtConfiguration = new JwtConfiguration(configuration);
 
-            services.AddAuthorization();
-
-            return services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+            return services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme
+            )
             .AddJwtBearer(x =>
             {
                 x.SaveToken = true;

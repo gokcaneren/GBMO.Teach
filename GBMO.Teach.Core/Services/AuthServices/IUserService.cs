@@ -7,7 +7,15 @@ namespace GBMO.Teach.Core.Services.AuthServices
 {
     public interface IUserService : IService<User>
     {
-        Task<ApiResponse<bool>> RegisterAsync(UserRegisterInput userRegisterInput, CancellationToken cancellationToken = default);
-        Task<ApiResponse<UserLoginOutput>> LoginAsync(UserLoginInput userLoginInput, CancellationToken cancellationToken = default);
+        Task<ApiResponse<bool>> RegisterAsync(
+            UserRegisterInput userRegisterInput,
+            CancellationToken cancellationToken = default);
+        Task<ApiResponse<UserLoginOutput>> LoginAsync(
+            UserLoginInput userLoginInput,
+            CancellationToken cancellationToken = default);
+
+        Task<ApiResponse<bool>> UpdateTeacherProfileAsync(
+            UpdateTeacherProfileInput updateTeacherProfileInput,
+            CancellationToken cancellationToken = default);
     }
 }

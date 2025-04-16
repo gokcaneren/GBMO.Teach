@@ -3,6 +3,7 @@ using System;
 using GBMO.Teach.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GBMO.Teach.Infrastructure.Migrations
 {
     [DbContext(typeof(GbmoDbContext))]
-    partial class GbmoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325085802_ClassDateAddedToTeacherSchedulesTable")]
+    partial class ClassDateAddedToTeacherSchedulesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,29 +53,29 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3c42d45d-9c47-45c4-b703-ff47158fe952"),
-                            CreationTime = new DateTime(2025, 4, 8, 7, 41, 57, 330, DateTimeKind.Utc).AddTicks(5366),
+                            Id = new Guid("8d3f6b6d-70f8-4a75-9d1c-f8e651c9180e"),
+                            CreationTime = new DateTime(2025, 3, 25, 8, 58, 1, 997, DateTimeKind.Utc).AddTicks(9397),
                             IsDeleted = false,
                             RoleTypeId = 0
                         },
                         new
                         {
-                            Id = new Guid("1902a635-6625-4d35-bbaf-12de3bae0ada"),
-                            CreationTime = new DateTime(2025, 4, 8, 7, 41, 57, 330, DateTimeKind.Utc).AddTicks(5396),
+                            Id = new Guid("6c9f19ea-729b-4336-ab92-13e687f64072"),
+                            CreationTime = new DateTime(2025, 3, 25, 8, 58, 1, 997, DateTimeKind.Utc).AddTicks(9425),
                             IsDeleted = false,
                             RoleTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("b2c3782a-b50d-423a-aceb-be07ef2cc91c"),
-                            CreationTime = new DateTime(2025, 4, 8, 7, 41, 57, 330, DateTimeKind.Utc).AddTicks(5397),
+                            Id = new Guid("329c5495-4cf7-4442-aba8-c50b0e667e22"),
+                            CreationTime = new DateTime(2025, 3, 25, 8, 58, 1, 997, DateTimeKind.Utc).AddTicks(9427),
                             IsDeleted = false,
                             RoleTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("1984d501-efba-4469-a27e-9eb7d7a4ef0a"),
-                            CreationTime = new DateTime(2025, 4, 8, 7, 41, 57, 330, DateTimeKind.Utc).AddTicks(5399),
+                            Id = new Guid("a2fe89c9-91c6-4363-8120-bf7cb231fc49"),
+                            CreationTime = new DateTime(2025, 3, 25, 8, 58, 1, 997, DateTimeKind.Utc).AddTicks(9428),
                             IsDeleted = false,
                             RoleTypeId = 3
                         });
@@ -120,7 +123,7 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("GBMO.Teach.Core.Entities.Common.SubsRequest", b =>
+            modelBuilder.Entity("GBMO.Teach.Core.Entities.Common.ClassBooking", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,18 +135,22 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0);
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("StudenId")
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("TeacherId")
@@ -151,7 +158,11 @@ namespace GBMO.Teach.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubsRequests");
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("ClassBookings");
                 });
 
             modelBuilder.Entity("GBMO.Teach.Core.Entities.Common.TeacherStudentConnection", b =>
@@ -297,16 +308,16 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.Property<DateTime>("ClassStartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ClassStatusses")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(1);
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedTime")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsBooked")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -314,19 +325,33 @@ namespace GBMO.Teach.Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("TeacherId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentId");
-
                     b.HasIndex("TeacherId");
 
                     b.ToTable("TeacherSchedules");
+                });
+
+            modelBuilder.Entity("GBMO.Teach.Core.Entities.Common.ClassBooking", b =>
+                {
+                    b.HasOne("GBMO.Teach.Core.Entities.Students.Student", "Student")
+                        .WithMany("ClassBookings")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GBMO.Teach.Core.Entities.Teachers.Teacher", "Teacher")
+                        .WithMany("ClassBookings")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("GBMO.Teach.Core.Entities.Common.TeacherStudentConnection", b =>
@@ -372,18 +397,11 @@ namespace GBMO.Teach.Infrastructure.Migrations
 
             modelBuilder.Entity("GBMO.Teach.Core.Entities.Teachers.TeacherSchedule", b =>
                 {
-                    b.HasOne("GBMO.Teach.Core.Entities.Students.Student", "Student")
-                        .WithMany("TeacherSchedules")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("GBMO.Teach.Core.Entities.Teachers.Teacher", "Teacher")
                         .WithMany("TeacherSchedules")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Student");
 
                     b.Navigation("Teacher");
                 });
@@ -399,13 +417,15 @@ namespace GBMO.Teach.Infrastructure.Migrations
 
             modelBuilder.Entity("GBMO.Teach.Core.Entities.Students.Student", b =>
                 {
-                    b.Navigation("TeacherSchedules");
+                    b.Navigation("ClassBookings");
 
                     b.Navigation("TeacherStudentConnections");
                 });
 
             modelBuilder.Entity("GBMO.Teach.Core.Entities.Teachers.Teacher", b =>
                 {
+                    b.Navigation("ClassBookings");
+
                     b.Navigation("TeacherSchedules");
 
                     b.Navigation("TeacherStudentConnections");

@@ -44,7 +44,6 @@ namespace GBMO.Teach.Infrastructure.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
 
-            services.AddScoped<IClassBookingRepository, ClassBookingRepository>();
             services.AddScoped<ITeacherStudentConnectionRepository, TeacherStudentConnectionRepository>();
 
             services.AddScoped<ISettingRepository, SettingRepository>();
@@ -53,6 +52,8 @@ namespace GBMO.Teach.Infrastructure.Extensions
 
             services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddScoped<ITeacherScheduleRepository, TeacherScheduleRepository>();
+
+            services.AddScoped<ISubRequestRepository, SubRequestRepository>();
 
             return services;
         }

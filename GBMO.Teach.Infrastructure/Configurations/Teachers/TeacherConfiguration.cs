@@ -15,11 +15,6 @@ public class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
 
         builder.HasQueryFilter(c => c.IsDeleted == false);
 
-        builder.HasMany(c => c.ClassBookings)
-            .WithOne(x => x.Teacher)
-            .HasForeignKey(z => z.TeacherId)
-            .OnDelete(DeleteBehavior.Cascade);
-
         builder.HasMany(c => c.TeacherSchedules)
             .WithOne(x => x.Teacher)
             .HasForeignKey(z => z.TeacherId)

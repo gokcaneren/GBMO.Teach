@@ -4,6 +4,7 @@ using GBMO.Teach.Application.Utilities;
 using GBMO.Teach.Core.DTOs.Input.Auth.User;
 using GBMO.Teach.Core.DTOs.Output.Auth.User;
 using GBMO.Teach.Core.Entities.Auth;
+using GBMO.Teach.Core.Enums;
 using GBMO.Teach.Core.Repositories;
 using GBMO.Teach.Core.Repositories.AuthRepositories;
 using GBMO.Teach.Core.UnitOfWorks;
@@ -82,6 +83,46 @@ namespace GBMO.Teach.Core.Services.AuthServices
 
             return await Task.FromResult(ApiResponse<bool>
                 .SuccessResponse(HttpStatusCode.Created, _localizer["Auth.UserCreateSuccessful"], true));
+        }
+
+        public async Task<ApiResponse<bool>> UpdateTeacherProfileAsync(UpdateTeacherProfileInput updateTeacherProfileInput, CancellationToken cancellationToken = default)
+        {
+            var userId = _authService.GetCurrentUserId();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return await Task.FromResult(ApiResponse<bool>
+                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true));
+            }
+
+            var user = await _userRepository.GetByIdAsync(Guid.Parse(userId), cancellationToken);
+
+            if (user == null)
+            {
+                return await Task.FromResult(ApiResponse<bool>
+                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true));
+            }
+
+            if (!IsTeacher(user))
+            {
+                return await Task.FromResult(ApiResponse<bool>
+                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true));
+            }
+
+            await _userRepository.LoadNavigationPropertyAsync(user, u => u.Teacher, cancellationToken);
+
+            user.Teacher.Bio = updateTeacherProfileInput.Bio;
+            user.Teacher.HourlyRate = updateTeacherProfileInput.HourlyRate;
+
+            await _userRepository.UpdateAsync(user, autoSave: true, cancellationToken: cancellationToken);
+
+            return await Task.FromResult(ApiResponse<bool>
+                .SuccessResponse(HttpStatusCode.OK, _localizer["Usr.TeacherProfileUpdateSuccessful"], true));
+        }
+
+        private bool IsTeacher(User user)
+        {
+            return user.RoleTypeId is ((int)RoleTypes.Teacher) or ((int)RoleTypes.Parent);
         }
     }
 }

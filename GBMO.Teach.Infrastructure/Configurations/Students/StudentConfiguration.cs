@@ -12,7 +12,7 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
 
         builder.HasQueryFilter(c => c.IsDeleted == false);
 
-        builder.HasMany(c => c.ClassBookings)
+        builder.HasMany(c => c.TeacherSchedules)
             .WithOne(x => x.Student)
             .HasForeignKey(z => z.StudentId)
             .OnDelete(DeleteBehavior.Cascade);

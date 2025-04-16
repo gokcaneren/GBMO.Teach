@@ -129,7 +129,7 @@
   <data name="Auth.UserSuccessfulLogin" xml:space="preserve">
     <value>Login successful!</value>
   </data>
-  <data name="Successful" xml:space="preserve">
+  <data name="Gnrl.Successful" xml:space="preserve">
     <value>Successful!</value>
   </data>
   <data name="Vldn.EmailCannotBeNull" xml:space="preserve">
@@ -149,5 +149,32 @@
   </data>
   <data name="Vldn.LastNameCannotBeNullOrEmpty" xml:space="preserve">
     <value>Last Name cannot be null or empty!</value>
+  </data>
+  <data name="Usr.TeacherProfileUpdateError" xml:space="preserve">
+    <value>Something went wrong!</value>
+  </data>
+  <data name="Usr.TeacherProfileUpdateSuccessful" xml:space="preserve">
+    <value>Profile successfully updated!</value>
+  </data>
+  <data name="Gnrl.SmtError" xml:space="preserve">
+    <value>Something went wrong!</value>
+  </data>
+  <data name="Tchr.ClassCreatedSuccessful" xml:space="preserve">
+    <value>Class successfully created!</value>
+  </data>
+  <data name="Teacher.ClassCreatedSuccessful" xml:space="preserve">
+    <value>Class successfully created!</value>
+  </data>
+  <data name="TcStCon.SubErrAlreadyConnected" xml:space="preserve">
+    <value>You are already connected with this teacher!</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Successful!</value>
+  </data>
+  <data name="TcStCon.SubReqAlredySent" xml:space="preserve">
+    <value>Sub request alredy sent!</value>
+  </data>
+  <data name="TcStCon.TeachErrAlreadyConnected" xml:space="preserve">
+    <value>You are already connected with this student!</value>
   </data>
 </root>

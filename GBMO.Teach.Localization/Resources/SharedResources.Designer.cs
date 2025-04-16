@@ -97,11 +97,83 @@ namespace GBMO.Teach.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong!.
+        /// </summary>
+        public static string Gnrl_SmtError {
+            get {
+                return ResourceManager.GetString("Gnrl.SmtError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successful!.
+        /// </summary>
+        public static string Gnrl_Successful {
+            get {
+                return ResourceManager.GetString("Gnrl.Successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successful!.
         /// </summary>
         public static string Successful {
             get {
                 return ResourceManager.GetString("Successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class successfully created!.
+        /// </summary>
+        public static string Tchr_ClassCreatedSuccessful {
+            get {
+                return ResourceManager.GetString("Tchr.ClassCreatedSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are already connected with this teacher!.
+        /// </summary>
+        public static string TcStCon_SubErrAlreadyConnected {
+            get {
+                return ResourceManager.GetString("TcStCon.SubErrAlreadyConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub request alredy sent!.
+        /// </summary>
+        public static string TcStCon_SubReqAlredySent {
+            get {
+                return ResourceManager.GetString("TcStCon.SubReqAlredySent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class successfully created!.
+        /// </summary>
+        public static string Teacher_ClassCreatedSuccessful {
+            get {
+                return ResourceManager.GetString("Teacher.ClassCreatedSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong!.
+        /// </summary>
+        public static string Usr_TeacherProfileUpdateError {
+            get {
+                return ResourceManager.GetString("Usr.TeacherProfileUpdateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile successfully updated!.
+        /// </summary>
+        public static string Usr_TeacherProfileUpdateSuccessful {
+            get {
+                return ResourceManager.GetString("Usr.TeacherProfileUpdateSuccessful", resourceCulture);
             }
         }
         

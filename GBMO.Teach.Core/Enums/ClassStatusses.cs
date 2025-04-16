@@ -2,6 +2,8 @@ namespace GBMO.Teach.Core.Enums;
 
 public enum ClassStatusses
 {
-    Active = 0,
-    Passive = 1
+    Passive = 0,
+    NotBooked = 1,
+    Booked = 2,
+    Completed = 3,
 }

@@ -10,7 +10,6 @@ public class Teacher : BaseEntity
     public string? Bio { get; set; }
 
     public virtual User User { get; set; }
-    public virtual ICollection<ClassBooking> ClassBookings { get; set; }
     public virtual ICollection<TeacherSchedule> TeacherSchedules { get; set; }
     public virtual ICollection<TeacherStudentConnection> TeacherStudentConnections { get; set; }
 

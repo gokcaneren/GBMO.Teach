@@ -2,11 +2,11 @@
 using GBMO.Teach.Application.Utilities;
 using GBMO.Teach.Core.DTOs.Input.Auth.User;
 using GBMO.Teach.Core.DTOs.Output.Auth.User;
+using GBMO.Teach.Core.DTOs.Output.Student;
 using GBMO.Teach.Core.Entities.Auth;
 using GBMO.Teach.Core.Entities.Students;
 using GBMO.Teach.Core.Entities.Teachers;
 using GBMO.Teach.Core.Enums;
-using System.Reflection.Metadata;
 
 namespace GBMO.Teach.Application.Mappings.Auth.Users
 {
@@ -19,6 +19,16 @@ namespace GBMO.Teach.Application.Mappings.Auth.Users
                 .AfterMap<UserRoleMappingAction>();
 
             CreateMap<User, UserLoginOutput>();
+
+            CreateMap<User, NonSubTeacherOutput>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.TeacherId, opt => opt.MapFrom(src=> src.Teacher.Id))
+                .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Teacher.Bio))
+                .ForMember(dest => dest.HourlyRate, opt => opt.MapFrom(src => src.Teacher.HourlyRate));
+
+            CreateMap<User, StudentUserSimpleOutput>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.StudentId, opt => opt.MapFrom(src=> src.Student.Id));
         }
     }
 
@@ -34,4 +44,5 @@ namespace GBMO.Teach.Application.Mappings.Auth.Users
             };
         }
     }
+
 }
