@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using GBMO.Teach.API.Filters;
+using GBMO.Teach.API.Middlewares;
 using GBMO.Teach.Application.Authentication.Extensions;
 using GBMO.Teach.Application.Extensions;
 using GBMO.Teach.Infrastructure.Extensions;
@@ -41,6 +42,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<LoggingMiddeware>();
 
 app.MapControllers();
 

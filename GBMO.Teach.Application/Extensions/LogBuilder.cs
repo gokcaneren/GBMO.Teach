@@ -36,8 +36,8 @@ namespace GBMO.Teach.Application.Extensions
             var elasticSearchSinkOptions = new ElasticsearchSinkOptions(new Uri($"{elasticSearchOptions.Url}"))
             {
                 MinimumLogEventLevel = logEventLevel,
-                AutoRegisterTemplate = true,
-                AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv8,
+                //AutoRegisterTemplate = true,
+                //AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv8,
                 IndexFormat = elasticSearchOptions.Index,
                 FailureSink = new FileSink(failurePath, new JsonFormatter(renderMessage: true), null),
                 EmitEventFailure = EmitEventFailureHandling.WriteToFailureSink | EmitEventFailureHandling.RaiseCallback,
