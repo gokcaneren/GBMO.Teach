@@ -1,6 +1,6 @@
-﻿
-using GBMO.Teach.Application.Extensions;
+﻿using GBMO.Teach.Application.Extensions;
 using GBMO.Teach.Core.Configurations.Logging;
+using GBMO.Teach.Core.Constants;
 using Serilog;
 using System.Text;
 
@@ -9,9 +9,9 @@ namespace GBMO.Teach.API.Middlewares
     public class LoggingMiddeware 
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<LoggingMiddeware> _logger;
+        private readonly Serilog.ILogger _logger;
 
-        public LoggingMiddeware(RequestDelegate next, ILogger<LoggingMiddeware> logger)
+        public LoggingMiddeware(RequestDelegate next, Serilog.ILogger logger)
         {
             _next = next;
             _logger = logger;
@@ -21,23 +21,28 @@ namespace GBMO.Teach.API.Middlewares
         {
             try
             {
-                var infoLog = await CreateInformationLogAsync(context);
-
-                var originalBodyStream = context.Response.Body;
-                using(var responseBody =  new MemoryStream())
+                if (context.Request.Path.Equals(PathContants.LoginPath))
                 {
-                    context.Response.Body = responseBody;
-
                     await _next.Invoke(context);
-
-                    infoLog.ResponseStatusCode = context.Response.StatusCode;
-                    infoLog.ResponseBody = await ReadResponseBodyAsync(context.Response);
-
-                    await responseBody.CopyToAsync(originalBodyStream);
                 }
+                else
+                {
+                    var infoLog = await CreateInformationLogAsync(context);
+                    var originalBodyStream = context.Response.Body;
+                    using (var responseBody = new MemoryStream())
+                    {
+                        context.Response.Body = responseBody;
 
-                _logger.LogInformation<InformationLogFormat>(infoLog);
+                        await _next.Invoke(context);
 
+                        infoLog.ResponseStatusCode = context.Response.StatusCode;
+                        infoLog.ResponseBody = await ReadResponseBodyAsync(context.Response);
+
+                        await responseBody.CopyToAsync(originalBodyStream);
+                    }
+
+                    _logger.LogInformation<InformationLogFormat>(infoLog);
+                }
             }
             catch (Exception ex)
             {
