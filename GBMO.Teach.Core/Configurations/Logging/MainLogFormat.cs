@@ -1,4 +1,5 @@
-﻿namespace GBMO.Teach.Core.Configurations.Logging
+﻿
+namespace GBMO.Teach.Core.Configurations.Logging
 {
     public abstract class MainLogFormat
     {

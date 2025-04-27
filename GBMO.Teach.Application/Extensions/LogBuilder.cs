@@ -14,11 +14,14 @@ namespace GBMO.Teach.Application.Extensions
         public static IServiceCollection BuildLogger(this IServiceCollection services, IConfiguration configuration)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
+                .MinimumLevel.Information()
                 .WriteTo.Elasticsearch(CreateElasticSettings(configuration))
+                .Enrich.FromLogContext()
                 .CreateLogger();
 
             services.AddSerilog();
+
+            services.AddSingleton<ILogger>(Log.Logger);
 
             return services;
         }
@@ -36,8 +39,8 @@ namespace GBMO.Teach.Application.Extensions
             var elasticSearchSinkOptions = new ElasticsearchSinkOptions(new Uri($"{elasticSearchOptions.Url}"))
             {
                 MinimumLogEventLevel = logEventLevel,
-                //AutoRegisterTemplate = true,
-                //AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv8,
+                AutoRegisterTemplate = true,
+                AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv8,
                 IndexFormat = elasticSearchOptions.Index,
                 FailureSink = new FileSink(failurePath, new JsonFormatter(renderMessage: true), null),
                 EmitEventFailure = EmitEventFailureHandling.WriteToFailureSink | EmitEventFailureHandling.RaiseCallback,
