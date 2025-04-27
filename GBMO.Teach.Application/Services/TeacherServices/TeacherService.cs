@@ -12,6 +12,7 @@ using GBMO.Teach.Core.UnitOfWorks;
 using GBMO.Teach.Core.Utilities;
 using GBMO.Teach.Localization.Resources;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using System.Net;
 
 namespace GBMO.Teach.Core.Services.TeacherServices
@@ -26,6 +27,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<SharedResources> _localizer;
+        private readonly ILogger<TeacherService> _logger;
 
         public TeacherService(IGenericRepository<Teacher> repository,
             ISubRequestRepository subRequestRepository,
@@ -34,7 +36,8 @@ namespace GBMO.Teach.Core.Services.TeacherServices
             IStringLocalizer<SharedResources> localizer,
             IUserRepository userRepository,
             ITeacherStudentConnectionRepository teacherStudentConnectionRepository,
-            IUnitOfWork unitOfWork) : base(repository)
+            IUnitOfWork unitOfWork,
+            ILogger<TeacherService> logger) : base(repository)
         {
             _subRequestRepository = subRequestRepository;
             _mapper = mapper;
@@ -43,6 +46,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
             _userRepository = userRepository;
             _teacherStudentConnectionRepository = teacherStudentConnectionRepository;
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<ApiResponse<bool>> ActSubRequestAsync(string studentId, bool isAccepted = false,
@@ -68,7 +72,6 @@ namespace GBMO.Teach.Core.Services.TeacherServices
                     return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
                     _localizer["TcStCon.TeachErrAlreadyConnected"], false));
                 }
-
 
                 var subRequest = await _subRequestRepository.GetByAsync(c => c.StudenId.Equals(Guid.Parse(studentId)));
 
@@ -105,9 +108,8 @@ namespace GBMO.Teach.Core.Services.TeacherServices
                 return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.OK,
                         _localizer["Gnrl.Successful"], true));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //LOG
                 throw;
             }
 

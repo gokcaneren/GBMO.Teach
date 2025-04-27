@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using GBMO.Teach.API.Filters;
+using GBMO.Teach.API.Middlewares;
 using GBMO.Teach.Application.Authentication.Extensions;
 using GBMO.Teach.Application.Extensions;
 using GBMO.Teach.Infrastructure.Extensions;
@@ -10,8 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+
 builder.Services.BuildInfrastructureServices(builder.Configuration);
 builder.Services.BuildApplicationServices(builder.Configuration);
+builder.Services.BuildLogger(builder.Configuration);
 
 builder.Services.BuildLocalizationServices(builder.Configuration);
 
@@ -38,6 +42,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<LoggingMiddeware>();
 
 app.MapControllers();
 
