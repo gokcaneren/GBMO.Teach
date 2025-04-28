@@ -12,13 +12,22 @@ namespace GBMO.Teach.Infrastructure.Repositories.AuthRepositories
         {
         }
 
+        public async Task<List<User>> GetConnectedTeachersAsync(string studentId, CancellationToken cancellationToken = default)
+        {
+            return await _gbmoDbContext.Users.Where(c => c.RoleTypeId == (int)RoleTypes.Teacher)
+                .Include(c => c.Teacher)
+                .ThenInclude(c => c.TeacherStudentConnections)
+                .Where(c => c.Teacher.TeacherStudentConnections.Any(x => x.StudentId.Equals(Guid.Parse(studentId))))
+                .ToListAsync(cancellationToken);
+        }
+
         public async Task<List<User>> GetNotConnectedTeachersAsync(string studentId,
             CancellationToken cancellationToken = default)
         {
             return await _gbmoDbContext.Users.Where(c=>c.RoleTypeId == (int)RoleTypes.Teacher)
                 .Include(c=>c.Teacher)
                 .ThenInclude(c=>c.TeacherStudentConnections)
-                .Where(c=> !c.Teacher.TeacherSchedules.Any(x => x.StudentId.Equals(Guid.Parse(studentId))))
+                .Where(c=> !c.Teacher.TeacherStudentConnections.Any(x => x.StudentId.Equals(Guid.Parse(studentId))))
                 .ToListAsync(cancellationToken); 
         }
 

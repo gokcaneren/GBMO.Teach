@@ -1,5 +1,8 @@
 ﻿using GBMO.Teach.Core.DTOs.Output.Student;
+using GBMO.Teach.Core.DTOs.Output.Teacher;
+using GBMO.Teach.Core.Repositories.StudentRepositories;
 using GBMO.Teach.Core.Services.CommonServices;
+using GBMO.Teach.Core.Services.StudentServices;
 using GBMO.Teach.Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +13,12 @@ namespace GBMO.Teach.API.Controllers.Student
     public class StudentController : ControllerBase
     {
         private readonly ISubRequestService _subRequestService;
+        private readonly IStudentService _studentService;
 
-        public StudentController(ISubRequestService subRequestService)
+        public StudentController(ISubRequestService subRequestService, IStudentService studentService)
         {
             _subRequestService = subRequestService;
+            _studentService = studentService;
         }
 
         [HttpPost("{teacherId}/subscribe")]
@@ -26,6 +31,12 @@ namespace GBMO.Teach.API.Controllers.Student
         public async Task<ApiResponse<List<NonSubTeacherOutput>>> GetNonSubTeachersAsync(CancellationToken cancellationToken = default)
         {
             return await _subRequestService.GetNonSubTeachersAsync(cancellationToken);
+        }
+
+        [HttpGet("teachers")]
+        public async Task<ApiResponse<List<SimpleTeacherOutput>>> GetSubbedTeachersAsync(CancellationToken cancellationToken = default)
+        {
+            return await _studentService.GetSubbedTeachersAsync(cancellationToken);
         }
     }
 }

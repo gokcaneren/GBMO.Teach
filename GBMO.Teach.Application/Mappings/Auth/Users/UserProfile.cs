@@ -3,6 +3,7 @@ using GBMO.Teach.Application.Utilities;
 using GBMO.Teach.Core.DTOs.Input.Auth.User;
 using GBMO.Teach.Core.DTOs.Output.Auth.User;
 using GBMO.Teach.Core.DTOs.Output.Student;
+using GBMO.Teach.Core.DTOs.Output.Teacher;
 using GBMO.Teach.Core.Entities.Auth;
 using GBMO.Teach.Core.Entities.Students;
 using GBMO.Teach.Core.Entities.Teachers;
@@ -29,6 +30,13 @@ namespace GBMO.Teach.Application.Mappings.Auth.Users
             CreateMap<User, StudentUserSimpleOutput>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.StudentId, opt => opt.MapFrom(src=> src.Student.Id));
+
+            CreateMap<User, SimpleTeacherOutput>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.TeacherId, opt => opt.MapFrom(src => src.Teacher.Id))
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
         }
     }
 

@@ -1,7 +1,6 @@
 ﻿using GBMO.Teach.Application.Extensions;
 using GBMO.Teach.Core.Configurations.Logging;
 using GBMO.Teach.Core.Constants;
-using Serilog;
 using System.Text;
 
 namespace GBMO.Teach.API.Middlewares

@@ -64,7 +64,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
 
                 var currentUser = await _userRepository.GetByAsync(c => c.Id.Equals(Guid.Parse(currentUserId)));
 
-                await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Teacher);
+                await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Teacher, cancellationToken);
 
 
                 if(await TeacherStudentConnectionIsExist(Guid.Parse(studentId), currentUser.Teacher.Id))
@@ -128,7 +128,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
 
             var currentUser = await _userRepository.GetByAsync(c => c.Id.Equals(Guid.Parse(currentUserId)));
 
-            await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Teacher);
+            await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Teacher, cancellationToken);
 
             var subRequestList = await _subRequestRepository.GetListByAsync(c=>c.TeacherId.Equals(currentUser.Teacher.Id) &&
             c.Status == Enums.SubRequestStatusses.Sent, cancellationToken);

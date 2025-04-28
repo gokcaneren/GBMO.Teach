@@ -51,7 +51,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
                         _localizer["Gnrl.SmtError"], false));
                 }
 
-                await _teacherRepository.LoadNavigationPropertyAsync(teacher, c => c.TeacherSchedules);
+                await _teacherRepository.LoadNavigationPropertyAsync(teacher, c => c.TeacherSchedules, cancellationToken);
 
 
                 if (teacher.TeacherSchedules.Any(c =>
