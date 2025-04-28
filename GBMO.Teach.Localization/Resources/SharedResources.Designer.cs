@@ -151,6 +151,33 @@ namespace GBMO.Teach.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have booked class with this teacher!.
+        /// </summary>
+        public static string TcStCon_TcherStdntHasNotCompletedClass {
+            get {
+                return ResourceManager.GetString("TcStCon.TcherStdntHasNotCompletedClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You already don&apos;t have connection with this teacher!.
+        /// </summary>
+        public static string TcStCon_TeacherAlreadyNotConnected {
+            get {
+                return ResourceManager.GetString("TcStCon.TeacherAlreadyNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are already connected with this student!.
+        /// </summary>
+        public static string TcStCon_TeachErrAlreadyConnected {
+            get {
+                return ResourceManager.GetString("TcStCon.TeachErrAlreadyConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Class successfully created!.
         /// </summary>
         public static string Teacher_ClassCreatedSuccessful {

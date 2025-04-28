@@ -177,4 +177,10 @@
   <data name="TcStCon.TeachErrAlreadyConnected" xml:space="preserve">
     <value>You are already connected with this student!</value>
   </data>
+  <data name="TcStCon.TeacherAlreadyNotConnected" xml:space="preserve">
+    <value>You already don't have connection with this teacher!</value>
+  </data>
+  <data name="TcStCon.TcherStdntHasNotCompletedClass" xml:space="preserve">
+    <value>You have booked class with this teacher!</value>
+  </data>
 </root>

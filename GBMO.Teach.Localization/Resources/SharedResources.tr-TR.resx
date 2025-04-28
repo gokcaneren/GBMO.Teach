@@ -177,4 +177,10 @@
   <data name="TcStCon.TeachErrAlreadyConnected" xml:space="preserve">
     <value>Bu öğrenci zaten bağlantınız.</value>
   </data>
+  <data name="TcStCon.TeacherAlreadyNotConnected" xml:space="preserve">
+    <value>Bu öğretmenle zaten bir bağlantınız yok!</value>
+  </data>
+  <data name="TcStCon.TcherStdntHasNotCompletedClass" xml:space="preserve">
+    <value>Bu öğretmenle ders rezervasyonu yaptırdınız!</value>
+  </data>
 </root>

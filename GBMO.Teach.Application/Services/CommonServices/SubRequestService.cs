@@ -51,18 +51,20 @@ namespace GBMO.Teach.Application.Services.CommonServices
 
             var currentUser = await _userRepository.GetByAsync(c=>c.Id.Equals(Guid.Parse(currentUserId)));
 
+            await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Student, cancellationToken);
+
             if (currentUser!.RoleTypeId == (int)RoleTypes.Teacher)
             {
                 return await Task.FromResult(ApiResponse<List<NonSubTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
                     _localizer["Gnrl.SmtError"], null));
             }
 
-            var teachers = await _userRepository.GetNotConnectedTeachersAsync(currentUserId, cancellationToken);
+            var teachers = await _userRepository.GetNotConnectedTeachersAsync(currentUser.Student.Id.ToString(), cancellationToken);
 
             var notRequestedTeachers = await Task.Run(() => teachers.Select(teacher =>
             {
                 var isRequested =  _subRequestRepository.GetBy(x => x.TeacherId.Equals(teacher.Teacher.Id) &&
-                x.StudenId.Equals(currentUserId) && (x.Status == SubRequestStatusses.Sent || x.Status == SubRequestStatusses.Accepted));
+                x.StudenId.Equals(currentUser.Student.Id) && (x.Status == SubRequestStatusses.Sent || x.Status == SubRequestStatusses.Accepted));
                 return isRequested == null ? teacher : null;
             }).Where(x => x != null).ToList());
 
@@ -84,7 +86,7 @@ namespace GBMO.Teach.Application.Services.CommonServices
 
             var currentUser = await _userRepository.GetByAsync(c => c.Id.Equals(Guid.Parse(currentUserId)));
 
-            await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Student);
+            await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Student, cancellationToken);
 
             if (await IsAlreadySent(currentUser.Student.Id, Guid.Parse(teacherId)))
             {
