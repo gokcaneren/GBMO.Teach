@@ -7,5 +7,6 @@ namespace GBMO.Teach.Core.Services.StudentServices
     public interface IStudentService : IService<Student>
     {
         Task<ApiResponse<List<SimpleTeacherOutput>>> GetSubbedTeachersAsync(CancellationToken cancellationToken = default);
+        Task<ApiResponse<bool>> UnSubTeacherAsync(string teacherId, CancellationToken cancellationToken = default);
     }
 }

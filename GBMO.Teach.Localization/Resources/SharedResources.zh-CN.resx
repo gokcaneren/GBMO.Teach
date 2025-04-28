@@ -177,4 +177,10 @@
   <data name="TcStCon.TeachErrAlreadyConnected" xml:space="preserve">
     <value>您已经与这位学生建立了联系！</value>
   </data>
+  <data name="TcStCon.TeacherAlreadyNotConnected" xml:space="preserve">
+    <value>你已经和这位老师没有任何联系了！</value>
+  </data>
+  <data name="TcStCon.TcherStdntHasNotCompletedClass" xml:space="preserve">
+    <value>您已預約了該老師的課程！</value>
+  </data>
 </root>

@@ -38,5 +38,11 @@ namespace GBMO.Teach.API.Controllers.Student
         {
             return await _studentService.GetSubbedTeachersAsync(cancellationToken);
         }
+
+        [HttpPost("{teacherId}/unsub-teacher")]
+        public async Task<ApiResponse<bool>> UnSubTeacherAsync(string teacherId, CancellationToken cancellationToken = default)
+        {
+            return await _studentService.UnSubTeacherAsync(teacherId, cancellationToken);
+        }
     }
 }
