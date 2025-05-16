@@ -183,4 +183,7 @@
   <data name="TcStCon.TcherStdntHasNotCompletedClass" xml:space="preserve">
     <value>您已預約了該老師的課程！</value>
   </data>
+  <data name="TchrSch.TeacherDoesntHaveAvailableClass" xml:space="preserve">
+    <value>该老师没有可授课的课程！</value>
+  </data>
 </root>

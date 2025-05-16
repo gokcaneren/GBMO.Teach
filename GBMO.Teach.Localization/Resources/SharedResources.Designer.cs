@@ -133,6 +133,15 @@ namespace GBMO.Teach.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The teacher has no available classes!.
+        /// </summary>
+        public static string TchrSch_TeacherDoesntHaveAvailableClass {
+            get {
+                return ResourceManager.GetString("TchrSch.TeacherDoesntHaveAvailableClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are already connected with this teacher!.
         /// </summary>
         public static string TcStCon_SubErrAlreadyConnected {
