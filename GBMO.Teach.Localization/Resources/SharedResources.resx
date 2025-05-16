@@ -183,4 +183,7 @@
   <data name="TcStCon.TcherStdntHasNotCompletedClass" xml:space="preserve">
     <value>You have booked class with this teacher!</value>
   </data>
+  <data name="TchrSch.TeacherDoesntHaveAvailableClass" xml:space="preserve">
+    <value>The teacher has no available classes!</value>
+  </data>
 </root>

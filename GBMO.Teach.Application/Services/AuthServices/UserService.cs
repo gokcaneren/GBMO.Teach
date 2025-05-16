@@ -46,16 +46,16 @@ namespace GBMO.Teach.Core.Services.AuthServices
 
             if (existedUser == null)
             {
-                return await Task.FromResult(ApiResponse<UserLoginOutput>
-                    .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Auth.UserNotExistOrWrongPassword"], null));
+                return ApiResponse<UserLoginOutput>
+                    .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Auth.UserNotExistOrWrongPassword"], null);
             }
 
             var result = PasswordManager.Verify(userLoginInput.Password, existedUser.PasswordHash);
 
             if (result == false)
             {
-                return await Task.FromResult(ApiResponse<UserLoginOutput>
-                    .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Auth.UserNotExistOrWrongPassword"], null));
+                return ApiResponse<UserLoginOutput>
+                    .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Auth.UserNotExistOrWrongPassword"], null);
             }
 
             var token = _authService.GenerateToken(existedUser);
@@ -63,8 +63,8 @@ namespace GBMO.Teach.Core.Services.AuthServices
             var userLoginResponse = _mapper.Map<UserLoginOutput>(existedUser);
             userLoginResponse.Token = token;
 
-            return await Task.FromResult(ApiResponse<UserLoginOutput>.
-                SuccessResponse(HttpStatusCode.OK, _localizer["Auth.UserSuccessfulLogin"], userLoginResponse));
+            return ApiResponse<UserLoginOutput>.
+                SuccessResponse(HttpStatusCode.OK, _localizer["Auth.UserSuccessfulLogin"], userLoginResponse);
         }
 
         public async Task<ApiResponse<bool>> RegisterAsync(UserRegisterInput userRegisterInput, CancellationToken cancellationToken = default)
@@ -73,16 +73,16 @@ namespace GBMO.Teach.Core.Services.AuthServices
 
             if (userIsExist != null)
             {
-                return await Task.FromResult(ApiResponse<bool>
-                    .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Auth.UserAlreadyExist"], false));
+                return ApiResponse<bool>
+                    .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Auth.UserAlreadyExist"], false);
             }
 
             var userEntity = _mapper.Map<User>(userRegisterInput);
 
             await _userRepository.CreateAsync(userEntity, autoSave: true, cancellationToken: cancellationToken);
 
-            return await Task.FromResult(ApiResponse<bool>
-                .SuccessResponse(HttpStatusCode.Created, _localizer["Auth.UserCreateSuccessful"], true));
+            return ApiResponse<bool>
+                .SuccessResponse(HttpStatusCode.Created, _localizer["Auth.UserCreateSuccessful"], true);
         }
 
         public async Task<ApiResponse<bool>> UpdateTeacherProfileAsync(UpdateTeacherProfileInput updateTeacherProfileInput, CancellationToken cancellationToken = default)
@@ -91,22 +91,22 @@ namespace GBMO.Teach.Core.Services.AuthServices
 
             if (string.IsNullOrEmpty(userId))
             {
-                return await Task.FromResult(ApiResponse<bool>
-                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true));
+                return ApiResponse<bool>
+                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true);
             }
 
             var user = await _userRepository.GetByIdAsync(Guid.Parse(userId), cancellationToken);
 
             if (user == null)
             {
-                return await Task.FromResult(ApiResponse<bool>
-                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true));
+                return ApiResponse<bool>
+                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true);
             }
 
             if (!IsTeacher(user))
             {
-                return await Task.FromResult(ApiResponse<bool>
-                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true));
+                return ApiResponse<bool>
+                .ErrorResponse(HttpStatusCode.BadRequest, _localizer["Usr.TeacherProfileUpdateError"], true);
             }
 
             await _userRepository.LoadNavigationPropertyAsync(user, u => u.Teacher, cancellationToken);
@@ -116,8 +116,8 @@ namespace GBMO.Teach.Core.Services.AuthServices
 
             await _userRepository.UpdateAsync(user, autoSave: true, cancellationToken: cancellationToken);
 
-            return await Task.FromResult(ApiResponse<bool>
-                .SuccessResponse(HttpStatusCode.OK, _localizer["Usr.TeacherProfileUpdateSuccessful"], true));
+            return ApiResponse<bool>
+                .SuccessResponse(HttpStatusCode.OK, _localizer["Usr.TeacherProfileUpdateSuccessful"], true);
         }
 
         private bool IsTeacher(User user)

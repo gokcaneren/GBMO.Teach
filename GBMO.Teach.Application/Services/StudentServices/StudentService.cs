@@ -3,7 +3,6 @@ using GBMO.Teach.Application.Services;
 using GBMO.Teach.Core.DTOs.Output.Teacher;
 using GBMO.Teach.Core.Entities.Auth;
 using GBMO.Teach.Core.Entities.Students;
-using GBMO.Teach.Core.Entities.Teachers;
 using GBMO.Teach.Core.Repositories;
 using GBMO.Teach.Core.Repositories.AuthRepositories;
 using GBMO.Teach.Core.Repositories.CommonRepositories;
@@ -51,8 +50,8 @@ namespace GBMO.Teach.Core.Services.StudentServices
 
             if (string.IsNullOrEmpty(currentUserId))
             {
-                return await Task.FromResult(ApiResponse<List<SimpleTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
-                    _localizer["Gnrl.SmtError"], null));
+                return ApiResponse<List<SimpleTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["Gnrl.SmtError"], null);
             }
 
             var currentUser = await _userRepository.GetByAsync(c => c.Id.Equals(Guid.Parse(currentUserId)));
@@ -64,8 +63,8 @@ namespace GBMO.Teach.Core.Services.StudentServices
 
             var simpleTeacherList = _mapper.Map<List<SimpleTeacherOutput>>(connectedTeachers);
 
-            return await Task.FromResult(ApiResponse<List<SimpleTeacherOutput>>.SuccessResponse(HttpStatusCode.OK,
-                _localizer["Gnrl.Successful"], simpleTeacherList));
+            return ApiResponse<List<SimpleTeacherOutput>>.SuccessResponse(HttpStatusCode.OK,
+                _localizer["Gnrl.Successful"], simpleTeacherList);
         }
 
         public async Task<ApiResponse<bool>> UnSubTeacherAsync(string teacherId, CancellationToken cancellationToken = default)
@@ -76,8 +75,8 @@ namespace GBMO.Teach.Core.Services.StudentServices
 
                 if (string.IsNullOrEmpty(currentUserId))
                 {
-                    return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
-                        _localizer["Gnrl.SmtError"], false));
+                    return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                        _localizer["Gnrl.SmtError"], false);
                 }
 
                 var currentUser = await _userRepository.GetByAsync(c => c.Id.Equals(Guid.Parse(currentUserId)));
@@ -89,21 +88,21 @@ namespace GBMO.Teach.Core.Services.StudentServices
 
                 if (connection == null)
                 {
-                    return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
-                        _localizer["TcStCon.TeacherAlreadyNotConnected"], false));
+                    return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                        _localizer["TcStCon.TeacherAlreadyNotConnected"], false);
                 }
 
                 if (await IsHasActiveClass(teacherId, currentUser))
                 {
-                    return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
-                        _localizer["TcStCon.TcherStdntHasNotCompletedClass"], false));
+                    return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                        _localizer["TcStCon.TcherStdntHasNotCompletedClass"], false);
                 }
 
                 await _teacherStudenctConnectionRepository.DeleteAsync(connection, cancellationToken);
                 await _unitOfWork.CommitAsync(cancellationToken);
 
-                return await Task.FromResult(ApiResponse<bool>.SuccessResponse(HttpStatusCode.OK,
-                    _localizer["Gnrl.Successful"], true));
+                return ApiResponse<bool>.SuccessResponse(HttpStatusCode.OK,
+                    _localizer["Gnrl.Successful"], true);
             }
             catch (Exception)
             {

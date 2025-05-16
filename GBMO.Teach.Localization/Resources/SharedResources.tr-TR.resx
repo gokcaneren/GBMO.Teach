@@ -183,4 +183,7 @@
   <data name="TcStCon.TcherStdntHasNotCompletedClass" xml:space="preserve">
     <value>Bu öğretmenle ders rezervasyonu yaptırdınız!</value>
   </data>
+  <data name="TchrSch.TeacherDoesntHaveAvailableClass" xml:space="preserve">
+    <value>Öğretmenin müsait dersi bulunmamaktadır!</value>
+  </data>
 </root>

@@ -45,8 +45,8 @@ namespace GBMO.Teach.Application.Services.CommonServices
             var currentUserId = _authService.GetCurrentUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                return await Task.FromResult(ApiResponse<List<NonSubTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
-                    _localizer["Gnrl.SmtError"], null));
+                return ApiResponse<List<NonSubTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["Gnrl.SmtError"], null);
             }
 
             var currentUser = await _userRepository.GetByAsync(c=>c.Id.Equals(Guid.Parse(currentUserId)));
@@ -55,8 +55,8 @@ namespace GBMO.Teach.Application.Services.CommonServices
 
             if (currentUser!.RoleTypeId == (int)RoleTypes.Teacher)
             {
-                return await Task.FromResult(ApiResponse<List<NonSubTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
-                    _localizer["Gnrl.SmtError"], null));
+                return ApiResponse<List<NonSubTeacherOutput>>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["Gnrl.SmtError"], null);
             }
 
             var teachers = await _userRepository.GetNotConnectedTeachersAsync(currentUser.Student.Id.ToString(), cancellationToken);
@@ -70,8 +70,8 @@ namespace GBMO.Teach.Application.Services.CommonServices
 
             var nonSubTeachers = _mapper.Map<List<NonSubTeacherOutput>>(notRequestedTeachers);
 
-            return await Task.FromResult(ApiResponse<List<NonSubTeacherOutput>>.SuccessResponse(HttpStatusCode.OK,
-                    _localizer["Gnrl.Successful"], nonSubTeachers));
+            return ApiResponse<List<NonSubTeacherOutput>>.SuccessResponse(HttpStatusCode.OK,
+                    _localizer["Gnrl.Successful"], nonSubTeachers);
         }
 
         public async Task<ApiResponse<bool>> SendSubRequestAsync(string teacherId, CancellationToken cancellationToken = default)
@@ -80,8 +80,8 @@ namespace GBMO.Teach.Application.Services.CommonServices
 
             if (string.IsNullOrEmpty(currentUserId))
             {
-                return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
-                    _localizer["Gnrl.SmtError"], false));
+                return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["Gnrl.SmtError"], false);
             }
 
             var currentUser = await _userRepository.GetByAsync(c => c.Id.Equals(Guid.Parse(currentUserId)));
@@ -90,14 +90,14 @@ namespace GBMO.Teach.Application.Services.CommonServices
 
             if (await IsAlreadySent(currentUser.Student.Id, Guid.Parse(teacherId)))
             {
-                return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
-                    _localizer["TcStCon.SubReqAlredySent"], false));
+                return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["TcStCon.SubReqAlredySent"], false);
             }
 
             if (await TeacherStudentConnectionIsExist(currentUser.Student.Id, Guid.Parse(teacherId)))
             {
-                return await Task.FromResult(ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
-                    _localizer["TcStCon.SubErrAlreadyConnected"], false));
+                return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["TcStCon.SubErrAlreadyConnected"], false);
             }
 
             var newSubRequest = new SubsRequest()
@@ -109,8 +109,8 @@ namespace GBMO.Teach.Application.Services.CommonServices
 
             await _subRequestRepository.CreateAsync(newSubRequest, autoSave: true, cancellationToken: cancellationToken);
 
-            return await Task.FromResult(ApiResponse<bool>.SuccessResponse(HttpStatusCode.OK,
-                    _localizer["Gnrl.Successful"], true));
+            return ApiResponse<bool>.SuccessResponse(HttpStatusCode.OK,
+                    _localizer["Gnrl.Successful"], true);
         }
 
         public async Task<bool> TeacherStudentConnectionIsExist(Guid studentId, Guid teacherId)
