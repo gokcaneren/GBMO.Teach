@@ -17,14 +17,17 @@ namespace GBMO.Teach.API.Controllers.Student
         private readonly ISubRequestService _subRequestService;
         private readonly IStudentService _studentService;
         private readonly ITeacherScheduleService _teacherScheduleService;
+        private readonly IScheduleBookRequestService _scheduleBookRequestService;
 
         public StudentController(ISubRequestService subRequestService,
             IStudentService studentService,
-            ITeacherScheduleService teacherScheduleService)
+            ITeacherScheduleService teacherScheduleService,
+            IScheduleBookRequestService scheduleBookRequestService)
         {
             _subRequestService = subRequestService;
             _studentService = studentService;
             _teacherScheduleService = teacherScheduleService;
+            _scheduleBookRequestService = scheduleBookRequestService;
         }
 
         [HttpPost("{teacherId}/subscribe")]
@@ -58,12 +61,12 @@ namespace GBMO.Teach.API.Controllers.Student
             return await _teacherScheduleService.GetTeacherClassScheduleAsync(teacherId, cancellationToken);
         }
 
-        //[HttpPost("{teacherId}/{scheduleId}/book-class")]
-        //public async Task<ApiResponse<bool>> SendClassBookRequestAsnyc(string teacherId, string scheduleId, 
-        //    CancellationToken cancellationToken = default)
-        //{
-
-        //}
+        [HttpPost("{teacherId}/{scheduleId}/book-class")]
+        public async Task<ApiResponse<bool>> SendClassBookRequestAsnyc(string teacherId, string scheduleId,
+            CancellationToken cancellationToken = default)
+        {
+            return await _scheduleBookRequestService.SendClassBookRequestAsync(teacherId, scheduleId, cancellationToken);
+        }
 
 
     }

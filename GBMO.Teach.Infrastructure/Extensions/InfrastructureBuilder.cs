@@ -55,6 +55,8 @@ namespace GBMO.Teach.Infrastructure.Extensions
 
             services.AddScoped<ISubRequestRepository, SubRequestRepository>();
 
+            services.AddScoped<IScheduleBookRequestRepository, ScheduleBookRequestRepository>();
+
             return services;
         }
     }

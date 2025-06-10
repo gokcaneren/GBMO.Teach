@@ -1,4 +1,5 @@
 ﻿using GBMO.Teach.Core.DTOs.Input.Teacher.TeacherSchedule;
+using GBMO.Teach.Core.DTOs.Input.Teacher.TeacherSchedule.BookRequest;
 using GBMO.Teach.Core.DTOs.Output.Teacher.TeacherSchedule;
 using GBMO.Teach.Core.Entities.Teachers;
 using GBMO.Teach.Core.Utilities;
@@ -12,5 +13,8 @@ namespace GBMO.Teach.Core.Services.TeacherServices
 
         Task<ApiResponse<TeacherWithScheduleOutput>> GetTeacherClassScheduleAsync(string teacherId,
             CancellationToken cancellationToken = default);
+
+        Task<ApiResponse<bool>> ActBookRequestAsync(bool isAccepted,
+            BookRequestInput bookRequestInput, CancellationToken cancellationToken = default);
     }
 }

@@ -40,6 +40,8 @@ namespace GBMO.Teach.Application.Extensions
 
             services.AddScoped<ISubRequestService, SubRequestService>();
 
+            services.AddScoped<IScheduleBookRequestService, ScheduleBookRequestService>();
+
             services.AddAutoMapper(typeof(UserProfile));
 
             services.AddValidatorsFromAssemblyContaining(typeof(UserRegisterInputValidator));

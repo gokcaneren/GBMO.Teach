@@ -1,6 +1,6 @@
 ﻿namespace GBMO.Teach.Core.Enums
 {
-    public enum SubRequestStatusses
+    public enum RequestStatusses
     {
         Sent = 0,
         Accepted = 1,

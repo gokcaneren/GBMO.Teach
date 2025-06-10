@@ -13,7 +13,7 @@ namespace GBMO.Teach.Infrastructure.Configurations.Common
 
             builder.Property(x=>x.StudenId).IsRequired();
             builder.Property(x=>x.TeacherId).IsRequired();
-            builder.Property(x => x.Status).IsRequired().HasDefaultValue(SubRequestStatusses.Sent);
+            builder.Property(x => x.Status).IsRequired().HasDefaultValue(RequestStatusses.Sent);
         }
     }
 }
