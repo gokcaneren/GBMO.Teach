@@ -1,8 +1,11 @@
 ﻿using GBMO.Teach.Application.Services;
 using GBMO.Teach.Core.DTOs.Input.Teacher.TeacherSchedule;
+using GBMO.Teach.Core.DTOs.Input.Teacher.TeacherSchedule.BookRequest;
 using GBMO.Teach.Core.DTOs.Output.Teacher.TeacherSchedule;
 using GBMO.Teach.Core.Entities.Teachers;
+using GBMO.Teach.Core.Enums;
 using GBMO.Teach.Core.Repositories;
+using GBMO.Teach.Core.Repositories.CommonRepositories;
 using GBMO.Teach.Core.Repositories.TeacherRepositories;
 using GBMO.Teach.Core.Services.AuthServices;
 using GBMO.Teach.Core.UnitOfWorks;
@@ -19,16 +22,91 @@ namespace GBMO.Teach.Core.Services.TeacherServices
         private readonly ITeacherScheduleRepository _teacherScheduleRepository;
         private readonly ITeacherRepository _teacherRepository;
         private readonly IAuthService _authService;
+        private readonly IScheduleBookRequestRepository _scheduleBookRequestRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStringLocalizer<SharedResources> _localizer;
 
-        public TeacherScheduleService(IGenericRepository<TeacherSchedule> repository, ITeacherScheduleRepository teacherScheduleRepository, ITeacherRepository teacherRepository, IAuthService authService, IStringLocalizer<SharedResources> localizer, IUnitOfWork unitOfWork) : base(repository)
+        public TeacherScheduleService(
+            IGenericRepository<TeacherSchedule> repository,
+            ITeacherScheduleRepository teacherScheduleRepository,
+            ITeacherRepository teacherRepository,
+            IAuthService authService,
+            IStringLocalizer<SharedResources> localizer,
+            IUnitOfWork unitOfWork,
+            IScheduleBookRequestRepository scheduleBookRequestRepository) : base(repository)
         {
             _teacherScheduleRepository = teacherScheduleRepository;
             _teacherRepository = teacherRepository;
             _authService = authService;
             _localizer = localizer;
             _unitOfWork = unitOfWork;
+            _scheduleBookRequestRepository = scheduleBookRequestRepository;
+        }
+
+        public async Task<ApiResponse<bool>> ActBookRequestAsync(bool isAccepted, BookRequestInput bookRequestInput, CancellationToken cancellationToken = default)
+        {
+            var userId = _authService.GetCurrentUserId();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                    _localizer["Gnrl.SmtError"], false);
+            }
+
+            try
+            {
+                var teacher = await _teacherRepository.GetByAsync(c => c.UserId.Equals(Guid.Parse(userId)));
+
+                if (teacher == null)
+                {
+                    return ApiResponse<bool>.ErrorResponse(HttpStatusCode.BadRequest,
+                        _localizer["Gnrl.SmtError"], false);
+                }
+
+                var teacherSchedule = await _teacherScheduleRepository.GetByAsync(c => c.Id.Equals(Guid.Parse(bookRequestInput.ScheduleId)), cancellationToken);
+
+                //await _teacherRepository.LoadNavigationPropertyAsync(teacher, c => c.TeacherSchedules, cancellationToken);
+
+                var bookRequest = await _scheduleBookRequestRepository.GetByAsync(c => c.TeacherId.Equals(teacher.Id)
+                    && c.StudenId.Equals(Guid.Parse(bookRequestInput.StudentId)) &&
+                    c.ScheduleId.Equals(Guid.Parse(bookRequestInput.ScheduleId)), cancellationToken);
+
+
+                if (isAccepted)
+                {
+                    teacherSchedule.StudentId = bookRequest.StudenId;
+                    bookRequest.Status = RequestStatusses.Accepted;
+
+                    var otherBookRequests = await _scheduleBookRequestRepository.GetListByAsync(
+                        c => c.ScheduleId.Equals(Guid.Parse(bookRequestInput.ScheduleId)) &&
+                        c.StudenId != bookRequest.StudenId);
+
+                    foreach (var otherBookRequest in otherBookRequests)
+                    {
+                        otherBookRequest.Status = RequestStatusses.Rejected;
+                    }
+
+                    await _unitOfWork.CommitAsync(cancellationToken);
+
+                    return ApiResponse<bool>.SuccessResponse(HttpStatusCode.OK,
+                    _localizer["Gnrl.Successful"], true);
+
+                }
+                else
+                {
+                    bookRequest.Status = RequestStatusses.Rejected;
+                    await _unitOfWork.CommitAsync(cancellationToken);
+
+                    return ApiResponse<bool>.SuccessResponse(HttpStatusCode.OK,
+                    _localizer["Gnrl.Successful"], true);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<ApiResponse<bool>> CreateClassScheduleAsync(TeacherScheduleCreateInput teacherScheduleCreateInput,
@@ -112,6 +190,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
                 Email = teacher.User.Email,
                 ClassSchedule = teacherSchedule.Select(c => new TeacherScheduleOutput
                 {
+                    ScheduleId = c.Id,
                     ClassStartDate = c.ClassStartDate,
                     ClassEndDate = c.ClassEndDate,
                     ClassStatusses = c.ClassStatusses

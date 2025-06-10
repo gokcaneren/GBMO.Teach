@@ -64,7 +64,7 @@ namespace GBMO.Teach.Application.Services.CommonServices
             var notRequestedTeachers = await Task.Run(() => teachers.Select(teacher =>
             {
                 var isRequested =  _subRequestRepository.GetBy(x => x.TeacherId.Equals(teacher.Teacher.Id) &&
-                x.StudenId.Equals(currentUser.Student.Id) && (x.Status == SubRequestStatusses.Sent || x.Status == SubRequestStatusses.Accepted));
+                x.StudenId.Equals(currentUser.Student.Id) && (x.Status == RequestStatusses.Sent || x.Status == RequestStatusses.Accepted));
                 return isRequested == null ? teacher : null;
             }).Where(x => x != null).ToList());
 
@@ -104,7 +104,7 @@ namespace GBMO.Teach.Application.Services.CommonServices
             {
                 StudenId = currentUser.Student.Id,
                 TeacherId = Guid.Parse(teacherId),
-                Status = SubRequestStatusses.Sent
+                Status = RequestStatusses.Sent
             };
 
             await _subRequestRepository.CreateAsync(newSubRequest, autoSave: true, cancellationToken: cancellationToken);
@@ -124,7 +124,7 @@ namespace GBMO.Teach.Application.Services.CommonServices
         public async Task<bool> IsAlreadySent(Guid studentId, Guid teacherId)
         {
             var isSent = await _subRequestRepository.GetByAsync(c => c.StudenId.Equals(studentId)
-            && c.TeacherId.Equals(teacherId) && c.Status == SubRequestStatusses.Sent);
+            && c.TeacherId.Equals(teacherId) && c.Status == RequestStatusses.Sent);
 
             return isSent != null;
         }

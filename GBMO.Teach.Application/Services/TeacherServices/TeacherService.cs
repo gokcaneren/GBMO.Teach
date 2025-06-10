@@ -95,7 +95,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
 
                     await _teacherStudentConnectionRepository.CreateAsync(newConnection, false, cancellationToken);
 
-                    subRequest.Status = Enums.SubRequestStatusses.Accepted;
+                    subRequest.Status = Enums.RequestStatusses.Accepted;
 
                     await _subRequestRepository.UpdateAsync(subRequest, false, cancellationToken);
 
@@ -105,7 +105,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
                         _localizer["Gnrl.Successful"], true);
                 }
 
-                subRequest.Status = Enums.SubRequestStatusses.Rejected;
+                subRequest.Status = Enums.RequestStatusses.Rejected;
 
                 await _subRequestRepository.UpdateAsync(subRequest, true, cancellationToken);
 
@@ -178,7 +178,7 @@ namespace GBMO.Teach.Core.Services.TeacherServices
             await _userRepository.LoadNavigationPropertyAsync(currentUser, c => c.Teacher, cancellationToken);
 
             var subRequestList = await _subRequestRepository.GetListByAsync(c=>c.TeacherId.Equals(currentUser.Teacher.Id) &&
-            c.Status == Enums.SubRequestStatusses.Sent, cancellationToken);
+            c.Status == Enums.RequestStatusses.Sent, cancellationToken);
 
             var requesterStudents = await _userRepository.GetRequesterStudentsAsync(subRequestList.Select(c => c.StudenId).ToList(),
                 cancellationToken);

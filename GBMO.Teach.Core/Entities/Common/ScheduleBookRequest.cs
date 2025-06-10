@@ -2,10 +2,11 @@
 
 namespace GBMO.Teach.Core.Entities.Common
 {
-    public class SubsRequest : BaseEntity
+    public class ScheduleBookRequest : BaseEntity
     {
         public Guid StudenId { get; set; }
         public Guid TeacherId { get; set; }
+        public Guid ScheduleId { get; set; }
         public RequestStatusses Status { get; set; }
     }
 }
